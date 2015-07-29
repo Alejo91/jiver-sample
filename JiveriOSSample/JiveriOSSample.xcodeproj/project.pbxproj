@@ -1,0 +1,671 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5A1136E01B687B5300247158 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1136DF1B687B5300247158 /* main.m */; };
+		5A1136E31B687B5300247158 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1136E21B687B5300247158 /* AppDelegate.m */; };
+		5A1136E61B687B5300247158 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1136E51B687B5300247158 /* ViewController.m */; };
+		5A1136EB1B687B5300247158 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A1136EA1B687B5300247158 /* Images.xcassets */; };
+		5A1136FA1B687B5300247158 /* JiveriOSSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1136F91B687B5300247158 /* JiveriOSSampleTests.m */; };
+		5A11373C1B68A40000247158 /* ChattingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11373B1B68A40000247158 /* ChattingTableViewController.m */; };
+		5A11374F1B68A42700247158 /* BroadcastMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11373E1B68A42700247158 /* BroadcastMessageTableViewCell.m */; };
+		5A1137501B68A42700247158 /* ChannelListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137401B68A42700247158 /* ChannelListTableView.m */; };
+		5A1137511B68A42700247158 /* ChannelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137421B68A42700247158 /* ChannelTableViewCell.m */; };
+		5A1137521B68A42700247158 /* ChatMessageInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137441B68A42700247158 /* ChatMessageInputView.m */; };
+		5A1137531B68A42700247158 /* FileLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137461B68A42700247158 /* FileLinkTableViewCell.m */; };
+		5A1137541B68A42700247158 /* FileMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137481B68A42700247158 /* FileMessageTableViewCell.m */; };
+		5A1137551B68A42700247158 /* IndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11374A1B68A42700247158 /* IndicatorView.m */; };
+		5A1137561B68A42700247158 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11374C1B68A42700247158 /* MessageTableViewCell.m */; };
+		5A1137571B68A42700247158 /* SystemMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11374E1B68A42700247158 /* SystemMessageTableViewCell.m */; };
+		5A11375A1B68A43D00247158 /* JiverCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137591B68A43D00247158 /* JiverCommon.m */; };
+		5A1137601B68C1F700247158 /* TypingNowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11375F1B68C1F700247158 /* TypingNowView.m */; };
+		5A1137631B68C24500247158 /* MessagingMyMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137621B68C24500247158 /* MessagingMyMessageTableViewCell.m */; };
+		5A1137661B68C29F00247158 /* MessagingMyFileLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137651B68C29F00247158 /* MessagingMyFileLinkTableViewCell.m */; };
+		5A1137691B68C2E400247158 /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137681B68C2E400247158 /* MemberTableViewCell.m */; };
+		5A11376C1B68C35C00247158 /* MessagingChannelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11376B1B68C35C00247158 /* MessagingChannelTableViewCell.m */; };
+		5A11376F1B68C6BB00247158 /* MessageInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11376E1B68C6BB00247158 /* MessageInputView.m */; };
+		5A1137721B68C72F00247158 /* MessagingSystemMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137711B68C72F00247158 /* MessagingSystemMessageTableViewCell.m */; };
+		5A1137751B68C8A100247158 /* MessagingMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137741B68C8A100247158 /* MessagingMessageTableViewCell.m */; };
+		5A1137781B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137771B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.m */; };
+		5A11377B1B68CB0900247158 /* MessagingFileLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11377A1B68CB0900247158 /* MessagingFileLinkTableViewCell.m */; };
+		5A11377E1B68CBD500247158 /* MessagingFileMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11377D1B68CBD500247158 /* MessagingFileMessageTableViewCell.m */; };
+		5A1137811B68CC4000247158 /* MessagingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137801B68CC4000247158 /* MessagingIndicatorView.m */; };
+		5A1137841B68CC8200247158 /* MessagingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137831B68CC8200247158 /* MessagingTableViewController.m */; };
+		857B260B87AD2C84E6B1EC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 443901047442C103FB163427 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5A1136F41B687B5300247158 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5A1136D21B687B5300247158 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A1136D91B687B5300247158;
+			remoteInfo = JiveriOSSample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		443901047442C103FB163427 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C20A6B8B7F2C6FB3ACAFAD8 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		5A1136DA1B687B5300247158 /* JiveriOSSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JiveriOSSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1136DE1B687B5300247158 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A1136DF1B687B5300247158 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		5A1136E11B687B5300247158 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5A1136E21B687B5300247158 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		5A1136E41B687B5300247158 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		5A1136E51B687B5300247158 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		5A1136EA1B687B5300247158 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		5A1136F31B687B5300247158 /* JiveriOSSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JiveriOSSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A1136F81B687B5300247158 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5A1136F91B687B5300247158 /* JiveriOSSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JiveriOSSampleTests.m; sourceTree = "<group>"; };
+		5A11373A1B68A40000247158 /* ChattingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChattingTableViewController.h; path = Jiver/ChattingTableViewController.h; sourceTree = "<group>"; };
+		5A11373B1B68A40000247158 /* ChattingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChattingTableViewController.m; path = Jiver/ChattingTableViewController.m; sourceTree = "<group>"; };
+		5A11373D1B68A42700247158 /* BroadcastMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BroadcastMessageTableViewCell.h; path = Jiver/BroadcastMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A11373E1B68A42700247158 /* BroadcastMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BroadcastMessageTableViewCell.m; path = Jiver/BroadcastMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A11373F1B68A42700247158 /* ChannelListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelListTableView.h; path = Jiver/ChannelListTableView.h; sourceTree = "<group>"; };
+		5A1137401B68A42700247158 /* ChannelListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelListTableView.m; path = Jiver/ChannelListTableView.m; sourceTree = "<group>"; };
+		5A1137411B68A42700247158 /* ChannelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChannelTableViewCell.h; path = Jiver/ChannelTableViewCell.h; sourceTree = "<group>"; };
+		5A1137421B68A42700247158 /* ChannelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChannelTableViewCell.m; path = Jiver/ChannelTableViewCell.m; sourceTree = "<group>"; };
+		5A1137431B68A42700247158 /* ChatMessageInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChatMessageInputView.h; path = Jiver/ChatMessageInputView.h; sourceTree = "<group>"; };
+		5A1137441B68A42700247158 /* ChatMessageInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ChatMessageInputView.m; path = Jiver/ChatMessageInputView.m; sourceTree = "<group>"; };
+		5A1137451B68A42700247158 /* FileLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileLinkTableViewCell.h; path = Jiver/FileLinkTableViewCell.h; sourceTree = "<group>"; };
+		5A1137461B68A42700247158 /* FileLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileLinkTableViewCell.m; path = Jiver/FileLinkTableViewCell.m; sourceTree = "<group>"; };
+		5A1137471B68A42700247158 /* FileMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileMessageTableViewCell.h; path = Jiver/FileMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A1137481B68A42700247158 /* FileMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileMessageTableViewCell.m; path = Jiver/FileMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A1137491B68A42700247158 /* IndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndicatorView.h; path = Jiver/IndicatorView.h; sourceTree = "<group>"; };
+		5A11374A1B68A42700247158 /* IndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IndicatorView.m; path = Jiver/IndicatorView.m; sourceTree = "<group>"; };
+		5A11374B1B68A42700247158 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageTableViewCell.h; path = Jiver/MessageTableViewCell.h; sourceTree = "<group>"; };
+		5A11374C1B68A42700247158 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageTableViewCell.m; path = Jiver/MessageTableViewCell.m; sourceTree = "<group>"; };
+		5A11374D1B68A42700247158 /* SystemMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemMessageTableViewCell.h; path = Jiver/SystemMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A11374E1B68A42700247158 /* SystemMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemMessageTableViewCell.m; path = Jiver/SystemMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A1137581B68A43D00247158 /* JiverCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JiverCommon.h; path = Jiver/JiverCommon.h; sourceTree = "<group>"; };
+		5A1137591B68A43D00247158 /* JiverCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JiverCommon.m; path = Jiver/JiverCommon.m; sourceTree = "<group>"; };
+		5A11375E1B68C1F700247158 /* TypingNowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TypingNowView.h; path = Jiver/TypingNowView.h; sourceTree = "<group>"; };
+		5A11375F1B68C1F700247158 /* TypingNowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TypingNowView.m; path = Jiver/TypingNowView.m; sourceTree = "<group>"; };
+		5A1137611B68C24500247158 /* MessagingMyMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingMyMessageTableViewCell.h; path = Jiver/MessagingMyMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A1137621B68C24500247158 /* MessagingMyMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingMyMessageTableViewCell.m; path = Jiver/MessagingMyMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A1137641B68C29F00247158 /* MessagingMyFileLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingMyFileLinkTableViewCell.h; path = Jiver/MessagingMyFileLinkTableViewCell.h; sourceTree = "<group>"; };
+		5A1137651B68C29F00247158 /* MessagingMyFileLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingMyFileLinkTableViewCell.m; path = Jiver/MessagingMyFileLinkTableViewCell.m; sourceTree = "<group>"; };
+		5A1137671B68C2E400247158 /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemberTableViewCell.h; path = Jiver/MemberTableViewCell.h; sourceTree = "<group>"; };
+		5A1137681B68C2E400247158 /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemberTableViewCell.m; path = Jiver/MemberTableViewCell.m; sourceTree = "<group>"; };
+		5A11376A1B68C35C00247158 /* MessagingChannelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingChannelTableViewCell.h; path = Jiver/MessagingChannelTableViewCell.h; sourceTree = "<group>"; };
+		5A11376B1B68C35C00247158 /* MessagingChannelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingChannelTableViewCell.m; path = Jiver/MessagingChannelTableViewCell.m; sourceTree = "<group>"; };
+		5A11376D1B68C6BB00247158 /* MessageInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageInputView.h; path = Jiver/MessageInputView.h; sourceTree = "<group>"; };
+		5A11376E1B68C6BB00247158 /* MessageInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageInputView.m; path = Jiver/MessageInputView.m; sourceTree = "<group>"; };
+		5A1137701B68C72F00247158 /* MessagingSystemMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingSystemMessageTableViewCell.h; path = Jiver/MessagingSystemMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A1137711B68C72F00247158 /* MessagingSystemMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingSystemMessageTableViewCell.m; path = Jiver/MessagingSystemMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A1137731B68C8A100247158 /* MessagingMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingMessageTableViewCell.h; path = Jiver/MessagingMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A1137741B68C8A100247158 /* MessagingMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingMessageTableViewCell.m; path = Jiver/MessagingMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A1137761B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingBroadcastMessageTableViewCell.h; path = Jiver/MessagingBroadcastMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A1137771B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingBroadcastMessageTableViewCell.m; path = Jiver/MessagingBroadcastMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A1137791B68CB0900247158 /* MessagingFileLinkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingFileLinkTableViewCell.h; path = Jiver/MessagingFileLinkTableViewCell.h; sourceTree = "<group>"; };
+		5A11377A1B68CB0900247158 /* MessagingFileLinkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingFileLinkTableViewCell.m; path = Jiver/MessagingFileLinkTableViewCell.m; sourceTree = "<group>"; };
+		5A11377C1B68CBD500247158 /* MessagingFileMessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingFileMessageTableViewCell.h; path = Jiver/MessagingFileMessageTableViewCell.h; sourceTree = "<group>"; };
+		5A11377D1B68CBD500247158 /* MessagingFileMessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingFileMessageTableViewCell.m; path = Jiver/MessagingFileMessageTableViewCell.m; sourceTree = "<group>"; };
+		5A11377F1B68CC4000247158 /* MessagingIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingIndicatorView.h; path = Jiver/MessagingIndicatorView.h; sourceTree = "<group>"; };
+		5A1137801B68CC4000247158 /* MessagingIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingIndicatorView.m; path = Jiver/MessagingIndicatorView.m; sourceTree = "<group>"; };
+		5A1137821B68CC8200247158 /* MessagingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessagingTableViewController.h; path = Jiver/MessagingTableViewController.h; sourceTree = "<group>"; };
+		5A1137831B68CC8200247158 /* MessagingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessagingTableViewController.m; path = Jiver/MessagingTableViewController.m; sourceTree = "<group>"; };
+		D13B1E1DAEB820863541F794 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5A1136D71B687B5300247158 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				857B260B87AD2C84E6B1EC7F /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A1136F01B687B5300247158 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5A1136D11B687B5300247158 = {
+			isa = PBXGroup;
+			children = (
+				5A1136DC1B687B5300247158 /* JiveriOSSample */,
+				5A1136F61B687B5300247158 /* JiveriOSSampleTests */,
+				5A1136DB1B687B5300247158 /* Products */,
+				624F0ECB28D112F0B97D62C9 /* Pods */,
+				7AEE6190ABD838DE5562E3D0 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		5A1136DB1B687B5300247158 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5A1136DA1B687B5300247158 /* JiveriOSSample.app */,
+				5A1136F31B687B5300247158 /* JiveriOSSampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5A1136DC1B687B5300247158 /* JiveriOSSample */ = {
+			isa = PBXGroup;
+			children = (
+				5A11371B1B6894C600247158 /* Jiver */,
+				5A1136E11B687B5300247158 /* AppDelegate.h */,
+				5A1136E21B687B5300247158 /* AppDelegate.m */,
+				5A1136E41B687B5300247158 /* ViewController.h */,
+				5A1136E51B687B5300247158 /* ViewController.m */,
+				5A1136EA1B687B5300247158 /* Images.xcassets */,
+				5A1136DD1B687B5300247158 /* Supporting Files */,
+			);
+			path = JiveriOSSample;
+			sourceTree = "<group>";
+		};
+		5A1136DD1B687B5300247158 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A1136DE1B687B5300247158 /* Info.plist */,
+				5A1136DF1B687B5300247158 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5A1136F61B687B5300247158 /* JiveriOSSampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				5A1136F91B687B5300247158 /* JiveriOSSampleTests.m */,
+				5A1136F71B687B5300247158 /* Supporting Files */,
+			);
+			path = JiveriOSSampleTests;
+			sourceTree = "<group>";
+		};
+		5A1136F71B687B5300247158 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A1136F81B687B5300247158 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5A1137031B687D0400247158 /* JiverChat */ = {
+			isa = PBXGroup;
+			children = (
+				5A1137171B68948A00247158 /* ViewController */,
+				5A1137161B68946C00247158 /* View */,
+			);
+			name = JiverChat;
+			sourceTree = "<group>";
+		};
+		5A1137161B68946C00247158 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A11373D1B68A42700247158 /* BroadcastMessageTableViewCell.h */,
+				5A11373E1B68A42700247158 /* BroadcastMessageTableViewCell.m */,
+				5A11373F1B68A42700247158 /* ChannelListTableView.h */,
+				5A1137401B68A42700247158 /* ChannelListTableView.m */,
+				5A1137411B68A42700247158 /* ChannelTableViewCell.h */,
+				5A1137421B68A42700247158 /* ChannelTableViewCell.m */,
+				5A1137431B68A42700247158 /* ChatMessageInputView.h */,
+				5A1137441B68A42700247158 /* ChatMessageInputView.m */,
+				5A1137451B68A42700247158 /* FileLinkTableViewCell.h */,
+				5A1137461B68A42700247158 /* FileLinkTableViewCell.m */,
+				5A1137471B68A42700247158 /* FileMessageTableViewCell.h */,
+				5A1137481B68A42700247158 /* FileMessageTableViewCell.m */,
+				5A1137491B68A42700247158 /* IndicatorView.h */,
+				5A11374A1B68A42700247158 /* IndicatorView.m */,
+				5A11374B1B68A42700247158 /* MessageTableViewCell.h */,
+				5A11374C1B68A42700247158 /* MessageTableViewCell.m */,
+				5A11374D1B68A42700247158 /* SystemMessageTableViewCell.h */,
+				5A11374E1B68A42700247158 /* SystemMessageTableViewCell.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5A1137171B68948A00247158 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A11373A1B68A40000247158 /* ChattingTableViewController.h */,
+				5A11373B1B68A40000247158 /* ChattingTableViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		5A1137181B68949800247158 /* JiverMessaging */ = {
+			isa = PBXGroup;
+			children = (
+				5A11371A1B6894A600247158 /* ViewController */,
+				5A1137191B6894A000247158 /* View */,
+			);
+			name = JiverMessaging;
+			sourceTree = "<group>";
+		};
+		5A1137191B6894A000247158 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5A11375E1B68C1F700247158 /* TypingNowView.h */,
+				5A11375F1B68C1F700247158 /* TypingNowView.m */,
+				5A1137611B68C24500247158 /* MessagingMyMessageTableViewCell.h */,
+				5A1137621B68C24500247158 /* MessagingMyMessageTableViewCell.m */,
+				5A1137641B68C29F00247158 /* MessagingMyFileLinkTableViewCell.h */,
+				5A1137651B68C29F00247158 /* MessagingMyFileLinkTableViewCell.m */,
+				5A1137671B68C2E400247158 /* MemberTableViewCell.h */,
+				5A1137681B68C2E400247158 /* MemberTableViewCell.m */,
+				5A11376A1B68C35C00247158 /* MessagingChannelTableViewCell.h */,
+				5A11376B1B68C35C00247158 /* MessagingChannelTableViewCell.m */,
+				5A11376D1B68C6BB00247158 /* MessageInputView.h */,
+				5A11376E1B68C6BB00247158 /* MessageInputView.m */,
+				5A1137701B68C72F00247158 /* MessagingSystemMessageTableViewCell.h */,
+				5A1137711B68C72F00247158 /* MessagingSystemMessageTableViewCell.m */,
+				5A1137731B68C8A100247158 /* MessagingMessageTableViewCell.h */,
+				5A1137741B68C8A100247158 /* MessagingMessageTableViewCell.m */,
+				5A1137761B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.h */,
+				5A1137771B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.m */,
+				5A1137791B68CB0900247158 /* MessagingFileLinkTableViewCell.h */,
+				5A11377A1B68CB0900247158 /* MessagingFileLinkTableViewCell.m */,
+				5A11377C1B68CBD500247158 /* MessagingFileMessageTableViewCell.h */,
+				5A11377D1B68CBD500247158 /* MessagingFileMessageTableViewCell.m */,
+				5A11377F1B68CC4000247158 /* MessagingIndicatorView.h */,
+				5A1137801B68CC4000247158 /* MessagingIndicatorView.m */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		5A11371A1B6894A600247158 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5A1137821B68CC8200247158 /* MessagingTableViewController.h */,
+				5A1137831B68CC8200247158 /* MessagingTableViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		5A11371B1B6894C600247158 /* Jiver */ = {
+			isa = PBXGroup;
+			children = (
+				5A1137581B68A43D00247158 /* JiverCommon.h */,
+				5A1137591B68A43D00247158 /* JiverCommon.m */,
+				5A1137031B687D0400247158 /* JiverChat */,
+				5A1137181B68949800247158 /* JiverMessaging */,
+			);
+			name = Jiver;
+			sourceTree = "<group>";
+		};
+		624F0ECB28D112F0B97D62C9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D13B1E1DAEB820863541F794 /* Pods.debug.xcconfig */,
+				4C20A6B8B7F2C6FB3ACAFAD8 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		7AEE6190ABD838DE5562E3D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				443901047442C103FB163427 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5A1136D91B687B5300247158 /* JiveriOSSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A1136FD1B687B5300247158 /* Build configuration list for PBXNativeTarget "JiveriOSSample" */;
+			buildPhases = (
+				DCC5D5853F59DF9B275C444D /* Check Pods Manifest.lock */,
+				5A1136D61B687B5300247158 /* Sources */,
+				5A1136D71B687B5300247158 /* Frameworks */,
+				5A1136D81B687B5300247158 /* Resources */,
+				97ED7300C4DF437E0AA4420D /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JiveriOSSample;
+			productName = JiveriOSSample;
+			productReference = 5A1136DA1B687B5300247158 /* JiveriOSSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5A1136F21B687B5300247158 /* JiveriOSSampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5A1137001B687B5300247158 /* Build configuration list for PBXNativeTarget "JiveriOSSampleTests" */;
+			buildPhases = (
+				5A1136EF1B687B5300247158 /* Sources */,
+				5A1136F01B687B5300247158 /* Frameworks */,
+				5A1136F11B687B5300247158 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5A1136F51B687B5300247158 /* PBXTargetDependency */,
+			);
+			name = JiveriOSSampleTests;
+			productName = JiveriOSSampleTests;
+			productReference = 5A1136F31B687B5300247158 /* JiveriOSSampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5A1136D21B687B5300247158 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = JIVER.CO;
+				TargetAttributes = {
+					5A1136D91B687B5300247158 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					5A1136F21B687B5300247158 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 5A1136D91B687B5300247158;
+					};
+				};
+			};
+			buildConfigurationList = 5A1136D51B687B5300247158 /* Build configuration list for PBXProject "JiveriOSSample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5A1136D11B687B5300247158;
+			productRefGroup = 5A1136DB1B687B5300247158 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5A1136D91B687B5300247158 /* JiveriOSSample */,
+				5A1136F21B687B5300247158 /* JiveriOSSampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5A1136D81B687B5300247158 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A1136EB1B687B5300247158 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A1136F11B687B5300247158 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		97ED7300C4DF437E0AA4420D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DCC5D5853F59DF9B275C444D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A1136D61B687B5300247158 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A1137501B68A42700247158 /* ChannelListTableView.m in Sources */,
+				5A1137551B68A42700247158 /* IndicatorView.m in Sources */,
+				5A1137811B68CC4000247158 /* MessagingIndicatorView.m in Sources */,
+				5A11373C1B68A40000247158 /* ChattingTableViewController.m in Sources */,
+				5A1136E61B687B5300247158 /* ViewController.m in Sources */,
+				5A1137601B68C1F700247158 /* TypingNowView.m in Sources */,
+				5A1137841B68CC8200247158 /* MessagingTableViewController.m in Sources */,
+				5A1137511B68A42700247158 /* ChannelTableViewCell.m in Sources */,
+				5A11377B1B68CB0900247158 /* MessagingFileLinkTableViewCell.m in Sources */,
+				5A11375A1B68A43D00247158 /* JiverCommon.m in Sources */,
+				5A1137721B68C72F00247158 /* MessagingSystemMessageTableViewCell.m in Sources */,
+				5A11377E1B68CBD500247158 /* MessagingFileMessageTableViewCell.m in Sources */,
+				5A11376C1B68C35C00247158 /* MessagingChannelTableViewCell.m in Sources */,
+				5A1137661B68C29F00247158 /* MessagingMyFileLinkTableViewCell.m in Sources */,
+				5A11374F1B68A42700247158 /* BroadcastMessageTableViewCell.m in Sources */,
+				5A1137781B68CA4F00247158 /* MessagingBroadcastMessageTableViewCell.m in Sources */,
+				5A1137531B68A42700247158 /* FileLinkTableViewCell.m in Sources */,
+				5A1137561B68A42700247158 /* MessageTableViewCell.m in Sources */,
+				5A1137631B68C24500247158 /* MessagingMyMessageTableViewCell.m in Sources */,
+				5A1136E31B687B5300247158 /* AppDelegate.m in Sources */,
+				5A11376F1B68C6BB00247158 /* MessageInputView.m in Sources */,
+				5A1137691B68C2E400247158 /* MemberTableViewCell.m in Sources */,
+				5A1137541B68A42700247158 /* FileMessageTableViewCell.m in Sources */,
+				5A1137751B68C8A100247158 /* MessagingMessageTableViewCell.m in Sources */,
+				5A1136E01B687B5300247158 /* main.m in Sources */,
+				5A1137571B68A42700247158 /* SystemMessageTableViewCell.m in Sources */,
+				5A1137521B68A42700247158 /* ChatMessageInputView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5A1136EF1B687B5300247158 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5A1136FA1B687B5300247158 /* JiveriOSSampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5A1136F51B687B5300247158 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A1136D91B687B5300247158 /* JiveriOSSample */;
+			targetProxy = 5A1136F41B687B5300247158 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5A1136FB1B687B5300247158 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5A1136FC1B687B5300247158 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5A1136FE1B687B5300247158 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D13B1E1DAEB820863541F794 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JiveriOSSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		5A1136FF1B687B5300247158 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4C20A6B8B7F2C6FB3ACAFAD8 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JiveriOSSample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		5A1137011B687B5300247158 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JiveriOSSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JiveriOSSample.app/JiveriOSSample";
+			};
+			name = Debug;
+		};
+		5A1137021B687B5300247158 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = JiveriOSSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JiveriOSSample.app/JiveriOSSample";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5A1136D51B687B5300247158 /* Build configuration list for PBXProject "JiveriOSSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A1136FB1B687B5300247158 /* Debug */,
+				5A1136FC1B687B5300247158 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A1136FD1B687B5300247158 /* Build configuration list for PBXNativeTarget "JiveriOSSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A1136FE1B687B5300247158 /* Debug */,
+				5A1136FF1B687B5300247158 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5A1137001B687B5300247158 /* Build configuration list for PBXNativeTarget "JiveriOSSampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A1137011B687B5300247158 /* Debug */,
+				5A1137021B687B5300247158 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 5A1136D21B687B5300247158 /* Project object */;
+}

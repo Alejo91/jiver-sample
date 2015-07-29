@@ -1,0 +1,10 @@
+PODS:
+  - JiverSDK (1.1.24)
+
+DEPENDENCIES:
+  - JiverSDK
+
+SPEC CHECKSUMS:
+  JiverSDK: 7e0f90dadd91f4b5a2dc8023c910123ebf1e28cb
+
+COCOAPODS: 0.38.2
