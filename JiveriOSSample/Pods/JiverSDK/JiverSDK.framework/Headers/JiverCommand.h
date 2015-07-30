@@ -23,7 +23,7 @@
 + (JiverCommand *)parse:(NSString *)data;
 + (JiverCommand *)bLoginWithUserKey:(NSString *)userKey;
 + (JiverCommand *)bJoinWithChannelId:(NSString *)channelId andLastMessageTs:(long long)lastMessageTs;
-+ (JiverCommand *)bMessageWithChannelId:(long long)channelId andMessage:(NSString *)message andData:(NSString *)data;
++ (JiverCommand *)bMessageWithChannelId:(long long)channelId andMessage:(NSString *)message andData:(NSString *)data mentionedUserIds:(NSArray *)mentionedUserIds;
 + (JiverCommand *)bFileOfChannelWithChannelId:(long long)channelId andFileInfo:(JiverFileInfo *)fileInfo;
 + (JiverCommand *)bPing;
 + (JiverCommand *)bReadOfChannel:(long long)channelId andTime:(long long)time;

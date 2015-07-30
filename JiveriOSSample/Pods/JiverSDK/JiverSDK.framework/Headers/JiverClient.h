@@ -22,6 +22,7 @@
 #import "JiverError.h"
 #import "JiverMember.h"
 #import "JiverWSClient.h"
+#import "JiverMention.h"
 
 //extern void (^onMessageReceived)(JiverMessage *message);
 //extern void (^onSystemMessageReceived)(JiverSystemMessage *message);
@@ -51,9 +52,9 @@ enum JiverDataType;
 - (void) connectWithMaxMessageTs:(long long)maxMessageTs;
 - (void) cancelAll;
 - (void) disconnect;
-- (void) registerNotificationHandlerMessagingChannelUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingChannelUpdated;
+- (void) registerNotificationHandlerMessagingChannelUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingChannelUpdated mentionUpdatedBlock:(void (^)(JiverMention *mention))mentionUpdated;
 - (void) unregisterNotificationHandlerMessagingChannelUpdatedBlock;
-- (void) cmdMessage:(NSString *)message withData:(NSString *)data andMessageId:(NSString *)messageId;
+- (void) cmdMessage:(NSString *)message withData:(NSString *)data andMessageId:(NSString *)messageId mentionedUserIds:(NSArray *)mentionedUserIds;
 - (void) markAsRead;
 - (void) markAsReadForChannelUrl:(NSString *)channelUrl;
 - (void) getChannelListInPage:(int)page withQuery:(NSString *)query withLimit:(int)limit resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;

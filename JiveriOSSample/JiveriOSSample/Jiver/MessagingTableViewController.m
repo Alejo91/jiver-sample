@@ -388,6 +388,9 @@
             [messagingChannels insertObject:channel atIndex:0];
             [self.messagingChannelListTableView reloadData];
         }
+    }
+    mentionUpdatedBlock:^(JiverMention *mention) {
+        
     }];
     if (viewMode == kMessagingChannelListViewMode) {
         [self setTitle:@"Message"];

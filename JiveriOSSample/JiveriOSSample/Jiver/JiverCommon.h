@@ -23,7 +23,7 @@
 #define kChatModeChatting 0
 #define kChatModeMessaging 1
 
-#define JIVER_IN_APP_VER @"JIVER In App version 1.1.18"
+#define JIVER_IN_APP_VER @"JIVER Sample v1.1.19"
 
 #pragma mark - ImageCache
 

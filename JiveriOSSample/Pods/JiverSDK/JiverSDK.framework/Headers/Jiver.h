@@ -23,6 +23,7 @@
 #import "JiverSystemMessage.h"
 #import "JiverWSClient.h"
 #import "JiverMessagingUnreadCountQuery.h"
+#import "JiverMention.h"
 
 #define kJiverInitWithIDFA 0
 #define kJiverInitWithIDFV 1
@@ -129,13 +130,14 @@ enum JiverDataType {
 + (void) disconnect;
 //+ (void) saveCursor;
 //+ (void) loadCursorWithChannelUrl:(NSString *)channelUrl;
-+ (void) registerNotificationHandlerMessagingChannelUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingChannelUpdated;
++ (void) registerNotificationHandlerMessagingChannelUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingChannelUpdated mentionUpdatedBlock:(void (^)(JiverMention *mention))mentionUpdated;
 + (void) unregisterNotificationHandlerMessagingChannelUpdatedBlock;
 
 + (void) sendMessage:(NSString *)message;
 + (void) sendMessage:(NSString *)message withMessageId:(NSString *)messageId;
 + (void) sendMessage:(NSString *)message withData:(NSString *)data;
 + (void) sendMessage:(NSString *)message withData:(NSString *)data andMessageId:(NSString *)messageId;
++ (void) sendMessage:(NSString *)message withData:(NSString *)data andMessageId:(NSString *)messageId mentionedUserIds:(NSArray *)mentionedUserIds;
 
 + (void) sendFile:(JiverFileInfo *)fileInfo;
 + (void) uploadFile:(NSData *)file type:(NSString *)type hasSizeOfFile:(unsigned long)size withCustomField:(NSString *)customField uploadBlock:(void (^)(JiverFileInfo *fileInfo, NSError *error))onUpload;
