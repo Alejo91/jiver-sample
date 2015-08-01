@@ -16,12 +16,14 @@ DerivedData
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+UserInterfaceState.xcuserstate
 
 ## Other
 *.xccheckout
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint
+*.swp
 
 ## Obj-C/Swift specific
 *.hmap
