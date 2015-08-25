@@ -61,6 +61,7 @@ import com.smilefam.jia.model.BroadcastMessage;
 import com.smilefam.jia.model.Channel;
 import com.smilefam.jia.model.FileInfo;
 import com.smilefam.jia.model.FileLink;
+import com.smilefam.jia.model.Mention;
 import com.smilefam.jia.model.Message;
 import com.smilefam.jia.model.MessageModel;
 import com.smilefam.jia.model.MessagingChannel;
@@ -285,7 +286,6 @@ public class JiverMessagingActivity extends FragmentActivity {
 
         Jiver.init(appKey);
         Jiver.login(uuid, nickname);
-//        Jiver.loginWithAccessToken(uuid, "bb7d0377c800a3ebb51ad9fbda0925ed0ba2ebe4");
 
         Jiver.registerNotificationHandler(new JiverNotificationHandler() {
             @Override
@@ -293,6 +293,11 @@ public class JiverMessagingActivity extends FragmentActivity {
                 if(mMessagingChannel != null && mMessagingChannel.getId() == messagingChannel.getId()) {
                     updateMessagingChannel(messagingChannel);
                 }
+            }
+
+            @Override
+            public void onMentionUpdated(Mention mention) {
+
             }
         });
 
@@ -529,46 +534,6 @@ public class JiverMessagingActivity extends FragmentActivity {
                 @Override
                 public void onClick(View v) {
                     send();
-                }
-            });
-
-            mBtnSend.setOnLongClickListener(new View.OnLongClickListener() {
-                public AsyncTask<Void, Void, Void> task;
-
-                @Override
-                public boolean onLongClick(View v) {
-                    if(task != null) {
-                        task.cancel(true);
-                        task = null;
-                        return false;
-                    }
-
-                    task = new AsyncTask<Void, Void, Void>() {
-                        int i = 0;
-                        @Override
-                        protected void onProgressUpdate(Void... values) {
-                            super.onProgressUpdate(values);
-                            Jiver.send("" + i);
-                            i++;
-                        }
-
-                        @Override
-                        protected Void doInBackground(Void... params) {
-                            for(int i = 0; i < 100000000; i++) {
-                                publishProgress();
-                                try {
-                                    Thread.sleep(100);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                            return null;
-                        }
-                    };
-
-                    task.execute();
-
-                    return false;
                 }
             });
 

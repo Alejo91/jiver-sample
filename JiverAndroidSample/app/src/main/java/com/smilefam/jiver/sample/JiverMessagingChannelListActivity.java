@@ -32,6 +32,7 @@ import com.smilefam.jia.MessagingChannelListQuery;
 import com.smilefam.jia.model.BroadcastMessage;
 import com.smilefam.jia.model.Channel;
 import com.smilefam.jia.model.FileLink;
+import com.smilefam.jia.model.Mention;
 import com.smilefam.jia.model.Message;
 import com.smilefam.jia.model.MessagingChannel;
 import com.smilefam.jia.model.ReadStatus;
@@ -96,12 +97,16 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
 
             Jiver.init(appKey);
             Jiver.login(uuid, nickname);
-//            Jiver.loginWithAccessToken(uuid, "bb7d0377c800a3ebb51ad9fbda0925ed0ba2ebe4");
 
             Jiver.registerNotificationHandler(new JiverNotificationHandler() {
                 @Override
                 public void onMessagingChannelUpdated(MessagingChannel messagingChannel) {
                     mJiverMessagingChannelAdapter.replace(messagingChannel);
+                }
+
+                @Override
+                public void onMentionUpdated(Mention mention) {
+
                 }
             });
 
