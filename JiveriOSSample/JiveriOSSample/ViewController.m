@@ -412,7 +412,7 @@
     if (chatMode == kChatModeChatting) {
         ChattingTableViewController *viewController = [[ChattingTableViewController alloc] init];
         
-        [Jiver initUserId:USER_ID andAppId:APP_ID selectDeviceId:kJiverInitWithIDFV];
+        [Jiver initAppId:APP_ID selectDeviceId:kJiverInitWithIDFV];
         
         [viewController setViewMode:viewMode];
         [viewController initChannelTitle];
@@ -433,7 +433,7 @@
     else if (chatMode == kChatModeMessaging) {
         MessagingTableViewController *viewController = [[MessagingTableViewController alloc] init];
         
-        [Jiver initUserId:USER_ID andAppId:APP_ID selectDeviceId:kJiverInitWithIDFV];
+        [Jiver initAppId:APP_ID selectDeviceId:kJiverInitWithIDFV];
         
         [viewController setViewMode:viewMode];
         [viewController initChannelTitle];

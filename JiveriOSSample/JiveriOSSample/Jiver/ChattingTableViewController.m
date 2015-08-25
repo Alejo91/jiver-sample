@@ -224,7 +224,7 @@
         
     } typeEndReceivedBlock:^(JiverTypeStatus *status) {
         
-    } allDataReceivedBlock:^(enum JiverDataType jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
     } messageDeliveryBlock:^(BOOL send, NSString *message, NSString *data, NSString *messageId) {
         if (send == NO && [self.messageInputView isInputEnable]) {

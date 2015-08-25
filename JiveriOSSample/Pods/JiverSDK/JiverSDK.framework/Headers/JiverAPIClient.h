@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Jiver.h"
-#import "NSDictionary+JSONString.h"
 
 #define kApiGuestLogin @"/v1/guest_login"
 #define kApiChannelList @"/v1/channel_list"

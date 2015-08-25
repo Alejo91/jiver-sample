@@ -496,7 +496,7 @@
     } typeEndReceivedBlock:^(JiverTypeStatus *status) {
         [self setTypeStatus:[[status user] guestId] andTimestamp:0];
         [self showTyping];
-    } allDataReceivedBlock:^(enum JiverDataType jiverDataType, int count) {
+    } allDataReceivedBlock:^(NSUInteger jiverDataType, int count) {
         if (jiverDataType == JiverDataTypeMessage) {
             [self scrollToBottomWithReloading:YES force:NO animated:NO];
         }
