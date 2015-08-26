@@ -183,12 +183,19 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
 
                 @Override
                 public void onMessagingEnded(MessagingChannel messagingChannel) {
+                }
 
+                @Override
+                public void onAllMessagingEnded() {
                 }
 
                 @Override
                 public void onMessagingHidden(MessagingChannel messagingChannel) {
 
+                }
+
+                @Override
+                public void onAllMessagingHidden() {
                 }
             });
 
@@ -216,7 +223,8 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Jiver.queryMessagingChannelList().execute(new MessagingChannelListQuery.MessagingChannelListQueryResult() {
+        final MessagingChannelListQuery query = Jiver.queryMessagingChannelList();
+        query.execute(new MessagingChannelListQuery.MessagingChannelListQueryResult() {
             @Override
             public void onResult(List<MessagingChannel> messagingChannels) {
                 JiverMessagingChannelAdapter.sortMessagingChannels(messagingChannels);

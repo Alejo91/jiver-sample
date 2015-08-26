@@ -52,11 +52,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.smilefam.jia.Jiver;
-import com.smilefam.jia.JiverEventHandler;
-import com.smilefam.jia.JiverFileUploadEventHandler;
-import com.smilefam.jia.JiverNotificationHandler;
-import com.smilefam.jia.MessageListQuery;
+import com.smilefam.jia.*;
 import com.smilefam.jia.model.BroadcastMessage;
 import com.smilefam.jia.model.Channel;
 import com.smilefam.jia.model.FileInfo;
@@ -370,7 +366,7 @@ public class JiverMessagingActivity extends FragmentActivity {
             }
 
             @Override
-            public void onMessageDelivery(boolean sent, String message, String data, String id) {
+            public void onMessageDelivery(boolean sent, String message, String data, String tempId) {
                 if(!sent) {
                     mJiverMessagingFragment.mEtxtMessage.setText(message);
                 }
@@ -408,14 +404,16 @@ public class JiverMessagingActivity extends FragmentActivity {
             }
 
             @Override
-            public void onMessagingEnded(MessagingChannel messagingChannel) {
-
-            }
+            public void onMessagingEnded(MessagingChannel messagingChannel) {  }
 
             @Override
-            public void onMessagingHidden(MessagingChannel messagingChannel) {
+            public void onAllMessagingEnded() {  }
 
-            }
+            @Override
+            public void onMessagingHidden(MessagingChannel messagingChannel) {  }
+
+            @Override
+            public void onAllMessagingHidden() {  }
 
         });
 
