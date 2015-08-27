@@ -300,7 +300,13 @@ public class JiverChatActivity extends FragmentActivity {
             public void onMessagingEnded(MessagingChannel messagingChannel) { }
 
             @Override
+            public void onAllMessagingEnded() { }
+
+            @Override
             public void onMessagingHidden(MessagingChannel messagingChannel) { }
+
+            @Override
+            public void onAllMessagingHidden() { }
 
         });
     }
