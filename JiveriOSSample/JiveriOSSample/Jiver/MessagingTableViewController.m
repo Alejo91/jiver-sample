@@ -474,6 +474,8 @@
                 
             }];
         }
+    } allMessagingEndedBlock:^ {
+        
     } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
         if (viewMode == kMessagingChannelListEditViewMode) {
             viewMode = kMessagingChannelListViewMode;
@@ -487,6 +489,8 @@
                 
             }];
         }
+    } allMessagingHiddenBlock:^ {
+        
     } readReceivedBlock:^(JiverReadStatus *status) {
         [self setReadStatus:[[status user] guestId] andTimestamp:[status timestamp]];
         [self.tableView reloadData];
@@ -1536,7 +1540,7 @@
     [self scrollToBottomWithReloading:NO force:YES animated:NO];
     if ([message length] > 0) {
         NSString *messageId = [[NSUUID UUID] UUIDString];
-        [Jiver sendMessage:message withMessageId:messageId];
+        [Jiver sendMessage:message withTempId:messageId];
     }
 }
 
@@ -1634,7 +1638,7 @@
         [Jiver typeEnd];
         [textField setText:@""];
         NSString *messageId = [[NSUUID UUID] UUIDString];
-        [Jiver sendMessage:message withMessageId:messageId];
+        [Jiver sendMessage:message withTempId:messageId];
     }
     
     return YES;

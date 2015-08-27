@@ -19,9 +19,12 @@
 #define kErrStartMessaging 14000
 #define kErrJoinMessaging 14050
 #define kErrEndMessaging 14100
+#define kErrEndAllMessaging 14110
 #define kErrInviteMessaging 14150
 #define kErrHideMessaging 14200
+#define kErrHideAllMessaging 14210
 #define kErrMarkAsRead 15100
+#define kErrMarkAsReadAll 15200
 #define kErrLeaveChannel 16000
 
 @interface JiverError : NSObject

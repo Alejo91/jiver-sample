@@ -216,7 +216,11 @@
         
     } messagingEndedBlock:^(JiverMessagingChannel *channel) {
         
+    } allMessagingEndedBlock:^ {
+        
     } messagingHiddenBlock:^(JiverMessagingChannel *channel) {
+        
+    } allMessagingHiddenBlock:^ {
         
     } readReceivedBlock:^(JiverReadStatus *status) {
         
@@ -644,7 +648,7 @@
     [self scrollToBottomWithReloading:YES force:YES animated:NO];
     if ([message length] > 0) {
         NSString *messageId = [[NSUUID UUID] UUIDString];
-        [Jiver sendMessage:message withMessageId:messageId];
+        [Jiver sendMessage:message withTempId:messageId];
     }
 }
 
@@ -734,7 +738,7 @@
     if ([message length] > 0) {
         [textField setText:@""];
         NSString *messageId = [[NSUUID UUID] UUIDString];
-        [Jiver sendMessage:message withMessageId:messageId];
+        [Jiver sendMessage:message withTempId:messageId];
     }
     
     return YES;

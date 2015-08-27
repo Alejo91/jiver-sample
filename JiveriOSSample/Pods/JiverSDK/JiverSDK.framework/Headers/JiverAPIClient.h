@@ -41,10 +41,13 @@
 - (void) uploadFile:(NSData *)file resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingStartWithGuestIds:(NSArray *)guestIds resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) markAsReadForChannelUrl:(NSString *)channelUrl resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
+- (void) markAllAsReadWithResultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingJoinWithChannelUrl:(NSString *)channelUrl resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingInviteWithChannelUrl:(NSString *)channelUrl andGuestIds:(NSArray *)guestIds resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingEndWithChannelUrl:(NSString *)channelUrl resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
+- (void) messagingEndAllWithResultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingHideWithChannelUrl:(NSString *)channelUrl resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
+- (void) messagingHideAllWithResultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingInfoOfChannelId:(long long)channelId resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingInfoMessageOnlyOfChannelId:(long long)channelId resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messagingListResultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
