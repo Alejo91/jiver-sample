@@ -113,7 +113,7 @@ typedef enum {
 + (NSString *) getUserName;
 
 
-+ (void) setEventHandlerConnectBlock:(void (^)(JiverChannel *channel))connect errorBlock:(void (^)(NSInteger code))error channelLeftBlock:(void (^)(JiverChannel *channel))channelLeft messageReceivedBlock:(void (^)(JiverMessage *message))messageReceived systemMessageReceivedBlock:(void (^)(JiverSystemMessage *message))systemMessageReceived broadcastMessageReceivedBlock:(void (^)(JiverBroadcastMessage *message))broadcastMessageReceived fileReceivedBlock:(void (^)(JiverFileLink *fileLink))fileReceived messagingStartedBlock:(void (^)(JiverMessagingChannel *channel))messagingStarted messagingUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingUpdated messagingEndedBlock:(void (^)(JiverMessagingChannel *channel))messagingEnded messagingHiddenBlock:(void (^)(JiverMessagingChannel *channel))messagingHidden readReceivedBlock:(void (^)(JiverReadStatus *status))readReceived typeStartReceivedBlock:(void (^)(JiverTypeStatus *status))typeStartReceived typeEndReceivedBlock:(void (^)(JiverTypeStatus *status))typeEndReceived allDataReceivedBlock:(void (^)(NSUInteger jiverDataType, int count))allDataReceived messageDeliveryBlock:(void (^)(BOOL send, NSString *message, NSString *data, NSString *messageId))messageDelivery;
++ (void) setEventHandlerConnectBlock:(void (^)(JiverChannel *channel))connect errorBlock:(void (^)(NSInteger code))error channelLeftBlock:(void (^)(JiverChannel *channel))channelLeft messageReceivedBlock:(void (^)(JiverMessage *message))messageReceived systemMessageReceivedBlock:(void (^)(JiverSystemMessage *message))systemMessageReceived broadcastMessageReceivedBlock:(void (^)(JiverBroadcastMessage *message))broadcastMessageReceived fileReceivedBlock:(void (^)(JiverFileLink *fileLink))fileReceived messagingStartedBlock:(void (^)(JiverMessagingChannel *channel))messagingStarted messagingUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingUpdated messagingEndedBlock:(void (^)(JiverMessagingChannel *channel))messagingEnded allMessagingEndedBlock:(void (^)())allMessagingEnded messagingHiddenBlock:(void (^)(JiverMessagingChannel *channel))messagingHidden allMessagingHiddenBlock:(void (^)())allMessagingHidden readReceivedBlock:(void (^)(JiverReadStatus *status))readReceived typeStartReceivedBlock:(void (^)(JiverTypeStatus *status))typeStartReceived typeEndReceivedBlock:(void (^)(JiverTypeStatus *status))typeEndReceived allDataReceivedBlock:(void (^)(NSUInteger jiverDataType, int count))allDataReceived messageDeliveryBlock:(void (^)(BOOL send, NSString *message, NSString *data, NSString *messageId))messageDelivery;
 
 + (JiverChannel *) getCurrentChannel;
 
@@ -123,12 +123,15 @@ typedef enum {
 + (void) inviteMessagingWithChannelUrl:(NSString *)channelUrl andUserId:(NSString *)userId;
 + (void) inviteMessagingWithChannelUrl:(NSString *)channelUrl andUserIds:(NSArray *)userIds;
 + (void) endMessagingWithChannelUrl:(NSString *)channelUrl;
++ (void) endAllMessaging;
 + (void) hideMessagingWithChannelUrl:(NSString *)channelUrl;
++ (void) hideAllMessaging;
 
 + (void) typeStart;
 + (void) typeEnd;
 + (void) markAsRead;
 + (void) markAsReadForChannel:(NSString *)channelUrl;
++ (void) markAllAsRead;
 
 + (void) connect;
 + (void) connectWithMessageTs:(long long)messageTs;
@@ -140,10 +143,10 @@ typedef enum {
 + (void) unregisterNotificationHandlerMessagingChannelUpdatedBlock;
 
 + (void) sendMessage:(NSString *)message;
-+ (void) sendMessage:(NSString *)message withMessageId:(NSString *)messageId;
++ (void) sendMessage:(NSString *)message withTempId:(NSString *)tempId;
 + (void) sendMessage:(NSString *)message withData:(NSString *)data;
-+ (void) sendMessage:(NSString *)message withData:(NSString *)data andMessageId:(NSString *)messageId;
-+ (void) sendMessage:(NSString *)message withData:(NSString *)data andMessageId:(NSString *)messageId mentionedUserIds:(NSArray *)mentionedUserIds;
++ (void) sendMessage:(NSString *)message withData:(NSString *)data andTempId:(NSString *)tempId;
++ (void) sendMessage:(NSString *)message withData:(NSString *)data andTempId:(NSString *)tempId mentionedUserIds:(NSArray *)mentionedUserIds;
 
 + (void) sendFile:(JiverFileInfo *)fileInfo;
 + (void) uploadFile:(NSData *)file type:(NSString *)type hasSizeOfFile:(unsigned long)size withCustomField:(NSString *)customField uploadBlock:(void (^)(JiverFileInfo *fileInfo, NSError *error))onUpload;

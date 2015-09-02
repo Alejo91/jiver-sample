@@ -6,11 +6,11 @@
 	<dict>
 		<key>Headers/Jiver.h</key>
 		<data>
-		K6LG/79m+jcJoLc4KySAXtWyIzQ=
+		baLdQ6aaR5ZQNVgwcfhidHbl2i0=
 		</data>
 		<key>Headers/JiverAPIClient.h</key>
 		<data>
-		EEZtO92bqCeEdhNvX5/A8ggdrRQ=
+		LfGaQlGYcSOUHggQNcrqvzZW1LA=
 		</data>
 		<key>Headers/JiverBroadcastMessage.h</key>
 		<data>
@@ -26,15 +26,15 @@
 		</data>
 		<key>Headers/JiverClient.h</key>
 		<data>
-		BvmCayKANoa3TeSjbvqLcxjd7ZQ=
+		cmrmqnqaNOeMXJxuNItSY311NAg=
 		</data>
 		<key>Headers/JiverCommand.h</key>
 		<data>
-		LFquQEu+B7To7vM2rj3JN+DMzpA=
+		BmQBYspTHCnXuHOtFP9QZ2H3I3s=
 		</data>
 		<key>Headers/JiverError.h</key>
 		<data>
-		mAMCY8cbsCTdBZzIT5myKuMJ00M=
+		Z4kgulOB/aLJiSRIUpCBB22rVUg=
 		</data>
 		<key>Headers/JiverFileInfo.h</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Headers/JiverMessage.h</key>
 		<data>
-		G8VTtkxGh4kdCSIfgo3g5uznbCE=
+		iSe9SxmJGuMj91H9fXDYhKXz52I=
 		</data>
 		<key>Headers/JiverMessageListQuery.h</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Headers/JiverMessagingChannelListQuery.h</key>
 		<data>
-		JRxvXHZAGE/682yE+RfQ/YSwIag=
+		qwk5fRRjwJHHuHBEG38G1mA0rgc=
 		</data>
 		<key>Headers/JiverMessagingUnreadCountQuery.h</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		j3gpWr5M7Y/gYhQN9grjy0fvsFc=
+		Oqk4wC+eBSTa1px+En2GZQxAHSU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -129,11 +129,11 @@
 	<dict>
 		<key>Headers/Jiver.h</key>
 		<data>
-		K6LG/79m+jcJoLc4KySAXtWyIzQ=
+		baLdQ6aaR5ZQNVgwcfhidHbl2i0=
 		</data>
 		<key>Headers/JiverAPIClient.h</key>
 		<data>
-		EEZtO92bqCeEdhNvX5/A8ggdrRQ=
+		LfGaQlGYcSOUHggQNcrqvzZW1LA=
 		</data>
 		<key>Headers/JiverBroadcastMessage.h</key>
 		<data>
@@ -149,15 +149,15 @@
 		</data>
 		<key>Headers/JiverClient.h</key>
 		<data>
-		BvmCayKANoa3TeSjbvqLcxjd7ZQ=
+		cmrmqnqaNOeMXJxuNItSY311NAg=
 		</data>
 		<key>Headers/JiverCommand.h</key>
 		<data>
-		LFquQEu+B7To7vM2rj3JN+DMzpA=
+		BmQBYspTHCnXuHOtFP9QZ2H3I3s=
 		</data>
 		<key>Headers/JiverError.h</key>
 		<data>
-		mAMCY8cbsCTdBZzIT5myKuMJ00M=
+		Z4kgulOB/aLJiSRIUpCBB22rVUg=
 		</data>
 		<key>Headers/JiverFileInfo.h</key>
 		<data>
@@ -185,7 +185,7 @@
 		</data>
 		<key>Headers/JiverMessage.h</key>
 		<data>
-		G8VTtkxGh4kdCSIfgo3g5uznbCE=
+		iSe9SxmJGuMj91H9fXDYhKXz52I=
 		</data>
 		<key>Headers/JiverMessageListQuery.h</key>
 		<data>
@@ -201,7 +201,7 @@
 		</data>
 		<key>Headers/JiverMessagingChannelListQuery.h</key>
 		<data>
-		JRxvXHZAGE/682yE+RfQ/YSwIag=
+		qwk5fRRjwJHHuHBEG38G1mA0rgc=
 		</data>
 		<key>Headers/JiverMessagingUnreadCountQuery.h</key>
 		<data>

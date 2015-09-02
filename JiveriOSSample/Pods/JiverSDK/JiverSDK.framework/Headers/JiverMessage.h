@@ -19,6 +19,7 @@
 @property BOOL isGuestMessage;
 @property (retain) NSString *data;
 @property (retain) NSDictionary *jsonObj;
+@property (retain) NSString *tempId;
 
 - (id) initWithDic:(NSDictionary *)dic;
 - (id) initWithDic:(NSDictionary *)dic inPresent:(BOOL)present;
