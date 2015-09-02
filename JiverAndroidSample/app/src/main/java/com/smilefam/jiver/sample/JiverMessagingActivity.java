@@ -52,7 +52,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.smilefam.jia.*;
+import com.smilefam.jia.Jiver;
+import com.smilefam.jia.JiverEventHandler;
+import com.smilefam.jia.JiverFileUploadEventHandler;
+import com.smilefam.jia.JiverNotificationHandler;
+import com.smilefam.jia.MessageListQuery;
 import com.smilefam.jia.model.BroadcastMessage;
 import com.smilefam.jia.model.Channel;
 import com.smilefam.jia.model.FileInfo;
@@ -139,13 +143,6 @@ public class JiverMessagingActivity extends FragmentActivity {
         initUIComponents();
         initJiver(getIntent().getExtras());
 
-        if(mJiverInfo.getBoolean("start")) {
-            String [] targetUserIds = mJiverInfo.getStringArray("targetUserIds");
-            Jiver.startMessaging(Arrays.asList(targetUserIds));
-        } else if(mJiverInfo.getBoolean("join")) {
-            String channelUrl = mJiverInfo.getString("channelUrl");
-            Jiver.joinMessaging(channelUrl);
-        }
     }
 
     @Override
@@ -188,6 +185,13 @@ public class JiverMessagingActivity extends FragmentActivity {
         };
         mTimer.start();
 
+        if(mJiverInfo.getBoolean("start")) {
+            String [] targetUserIds = mJiverInfo.getStringArray("targetUserIds");
+            Jiver.startMessaging(Arrays.asList(targetUserIds));
+        } else if(mJiverInfo.getBoolean("join")) {
+            String channelUrl = mJiverInfo.getString("channelUrl");
+            Jiver.joinMessaging(channelUrl);
+        }
     }
 
     @Override
@@ -196,11 +200,7 @@ public class JiverMessagingActivity extends FragmentActivity {
         if(mTimer != null) {
             mTimer.cancel();
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
+        Jiver.disconnect();
     }
 
     @Override
@@ -209,11 +209,6 @@ public class JiverMessagingActivity extends FragmentActivity {
         overridePendingTransition(R.anim.jiver_slide_in_from_top, R.anim.jiver_slide_out_to_bottom);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Jiver.disconnect();
-    }
 
 
     private void initFragment() {
@@ -282,7 +277,6 @@ public class JiverMessagingActivity extends FragmentActivity {
 
         Jiver.init(appKey);
         Jiver.login(uuid, nickname);
-
         Jiver.registerNotificationHandler(new JiverNotificationHandler() {
             @Override
             public void onMessagingChannelUpdated(MessagingChannel messagingChannel) {

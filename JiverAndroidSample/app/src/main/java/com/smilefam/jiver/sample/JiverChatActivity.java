@@ -86,6 +86,7 @@ public class JiverChatActivity extends FragmentActivity {
     private View mTopBarContainer;
     private View mSettingsContainer;
     private Button mBtnLeave;
+    private String mChannelUrl;
 
 
     public static Bundle makeJiverArgs(String appKey, String uuid, String nickname, String channelUrl) {
@@ -108,24 +109,17 @@ public class JiverChatActivity extends FragmentActivity {
 
         initUIComponents();
         initJiver(getIntent().getExtras());
-        Jiver.queryMessageList(Jiver.getChannelUrl()).prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
-            @Override
-            public void onResult(List<MessageModel> messageModels) {
-                for(MessageModel model : messageModels) {
-                    mJiverChatAdapter.addMessageModel(model);
-                }
+    }
 
 
-                mJiverChatAdapter.notifyDataSetChanged();
-                mJiverChatFragment.mListView.setSelection(mJiverChatAdapter.getCount());
-                Jiver.connect(mJiverChatAdapter.getMaxMessageTimestamp());
-            }
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
-            @Override
-            public void onError(Exception e) {
-
-            }
-        });
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override
@@ -149,11 +143,34 @@ public class JiverChatActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mJiverChatAdapter.clear();
+        mJiverChatAdapter.notifyDataSetChanged();
+
+        Jiver.queryMessageList(mChannelUrl).prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
+            @Override
+            public void onResult(List<MessageModel> messageModels) {
+                for (MessageModel model : messageModels) {
+                    mJiverChatAdapter.addMessageModel(model);
+                }
+
+
+                mJiverChatAdapter.notifyDataSetChanged();
+                mJiverChatFragment.mListView.setSelection(mJiverChatAdapter.getCount());
+                Jiver.join(mChannelUrl);
+                Jiver.connect(mJiverChatAdapter.getMaxMessageTimestamp());
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        Jiver.disconnect();
     }
 
     @Override
@@ -162,11 +179,6 @@ public class JiverChatActivity extends FragmentActivity {
         overridePendingTransition(R.anim.jiver_slide_in_from_top, R.anim.jiver_slide_out_to_bottom);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Jiver.disconnect();
-    }
 
 
     private void initFragment() {
@@ -196,12 +208,13 @@ public class JiverChatActivity extends FragmentActivity {
 
         if(requestCode == REQUEST_CHANNEL_LIST) {
             if(resultCode == RESULT_OK && data != null) {
-                final String channelUrl = data.getStringExtra("channelUrl");
+                mChannelUrl = data.getStringExtra("channelUrl");
+
 
                 mJiverChatAdapter.clear();
                 mJiverChatAdapter.notifyDataSetChanged();
 
-                Jiver.queryMessageList(channelUrl).prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
+                Jiver.queryMessageList(mChannelUrl).prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
                     @Override
                     public void onResult(List<MessageModel> messageModels) {
                         for(MessageModel model : messageModels) {
@@ -211,7 +224,7 @@ public class JiverChatActivity extends FragmentActivity {
 
                         mJiverChatAdapter.notifyDataSetChanged();
                         mJiverChatFragment.mListView.setSelection(mJiverChatAdapter.getCount());
-                        Jiver.join(channelUrl);
+                        Jiver.join(mChannelUrl);
                         Jiver.connect(mJiverChatAdapter.getMaxMessageTimestamp());
                     }
 
@@ -228,11 +241,10 @@ public class JiverChatActivity extends FragmentActivity {
         String appKey = extras.getString("appKey");
         String uuid = extras.getString("uuid");
         String nickname = extras.getString("nickname");
-        String channelUrl = extras.getString("channelUrl");
+        mChannelUrl = extras.getString("channelUrl");
 
         Jiver.init(appKey);
         Jiver.login(uuid, nickname);
-        Jiver.join(channelUrl);
         Jiver.setEventHandler(new JiverEventHandler() {
             @Override
             public void onConnect(Channel channel) {
@@ -276,37 +288,46 @@ public class JiverChatActivity extends FragmentActivity {
 
             @Override
             public void onMessageDelivery(boolean sent, String message, String data, String id) {
-               if(!sent) {
-                   mJiverChatFragment.mEtxtMessage.setText(message);
-               }
+                if (!sent) {
+                    mJiverChatFragment.mEtxtMessage.setText(message);
+                }
             }
 
             @Override
-            public void onReadReceived(ReadStatus readStatus) { }
+            public void onReadReceived(ReadStatus readStatus) {
+            }
 
             @Override
-            public void onTypeStartReceived(TypeStatus typeStatus) { }
+            public void onTypeStartReceived(TypeStatus typeStatus) {
+            }
 
             @Override
-            public void onTypeEndReceived(TypeStatus typeStatus) { }
+            public void onTypeEndReceived(TypeStatus typeStatus) {
+            }
 
             @Override
-            public void onMessagingStarted(MessagingChannel messagingChannel) { }
+            public void onMessagingStarted(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onMessagingUpdated(MessagingChannel messagingChannel) { }
+            public void onMessagingUpdated(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onMessagingEnded(MessagingChannel messagingChannel) { }
+            public void onMessagingEnded(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onAllMessagingEnded() { }
+            public void onAllMessagingEnded() {
+            }
 
             @Override
-            public void onMessagingHidden(MessagingChannel messagingChannel) { }
+            public void onMessagingHidden(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onAllMessagingHidden() { }
+            public void onAllMessagingHidden() {
+            }
 
         });
     }
@@ -388,7 +409,6 @@ public class JiverChatActivity extends FragmentActivity {
         private void initUIComponents(View rootView) {
             mListView = (ListView)rootView.findViewById(R.id.list);
             turnOffListViewDecoration(mListView);
-//            mListView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
             mListView.setAdapter(mAdapter);
 
             mBtnChannel = (ImageButton)rootView.findViewById(R.id.btn_channel);
@@ -466,8 +486,6 @@ public class JiverChatActivity extends FragmentActivity {
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
                     if(scrollState == SCROLL_STATE_IDLE) {
                         if(view.getFirstVisiblePosition() == 0 && view.getChildCount() > 0 && view.getChildAt(0).getTop() == 0) {
-//                            view.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_NORMAL);
-//                            Jiver.loadPrevMessages(30);
                             Jiver.queryMessageList(Jiver.getChannelUrl()).prev(mAdapter.getMinMessageTimestamp(), 30, new MessageListQuery.MessageListQueryResult() {
                                 @Override
                                 public void onResult(List<MessageModel> messageModels) {
@@ -583,7 +601,7 @@ public class JiverChatActivity extends FragmentActivity {
         }
     }
 
-    public static class JiverChatAdapter extends BaseAdapter {
+    public class JiverChatAdapter extends BaseAdapter {
         private static final int TYPE_UNSUPPORTED = 0;
         private static final int TYPE_MESSAGE = 1;
         private static final int TYPE_SYSTEM_MESSAGE = 2;
@@ -709,6 +727,8 @@ public class JiverChatActivity extends FragmentActivity {
                         viewHolder.setView("txt_sender_name", tv);
                         viewHolder.setView("img_op_icon", (ImageView)convertView.findViewById(R.id.img_op_icon));
 
+                        viewHolder.setView("img_file_container", convertView.findViewById(R.id.img_file_container));
+
                         viewHolder.setView("image_container", convertView.findViewById(R.id.image_container));
                         viewHolder.setView("img_thumbnail", convertView.findViewById(R.id.img_thumbnail));
                         viewHolder.setView("txt_image_name", convertView.findViewById(R.id.txt_image_name));
@@ -720,31 +740,6 @@ public class JiverChatActivity extends FragmentActivity {
 
                         convertView.setTag(viewHolder);
 
-                        convertView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                new AlertDialog.Builder(mContext)
-                                        .setTitle("JIVER")
-                                        .setMessage("Do you want to download this file?")
-                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                try {
-                                                    downloadUrl((FileLink)item, mContext);
-                                                } catch (IOException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        })
-                                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                            }
-                                        })
-                                        .create()
-                                        .show();
-                            }
-                        });
                         break;
                     }
                 }
@@ -764,6 +759,30 @@ public class JiverChatActivity extends FragmentActivity {
                         viewHolder.getView("img_op_icon", ImageView.class).setVisibility(View.GONE);
                         viewHolder.getView("message", TextView.class).setText(Html.fromHtml("<font color='#824096'><b>" + message.getSenderName() + "</b></font>: " + message.getMessage()));
                     }
+                    viewHolder.getView("message").setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle("JIVER")
+                                    .setMessage("Do you want to start 1:1 messaging with " + ((Message) item).getSenderName() + "?")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent data = new Intent();
+                                            data.putExtra("userIds", new String[]{((Message) item).getSenderId()});
+                                            setResult(RESULT_OK, data);
+                                            JiverChatActivity.this.finish();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    });
                     break;
                 case TYPE_SYSTEM_MESSAGE:
                     SystemMessage systemMessage = (SystemMessage)item;
@@ -775,7 +794,6 @@ public class JiverChatActivity extends FragmentActivity {
                     break;
                 case TYPE_FILELINK:
                     FileLink fileLink = (FileLink)item;
-
 
                     if(fileLink.isOpMessage()) {
                         viewHolder.getView("img_op_icon", ImageView.class).setVisibility(View.VISIBLE);
@@ -798,13 +816,62 @@ public class JiverChatActivity extends FragmentActivity {
                         viewHolder.getView("txt_file_name", TextView.class).setText(fileLink.getFileInfo().getName());
                         viewHolder.getView("txt_file_size", TextView.class).setText("" + fileLink.getFileInfo().getSize());
                     }
+                    viewHolder.getView("txt_sender_name").setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle("JIVER")
+                                    .setMessage("Do you want to start 1:1 messaging with " + ((FileLink) item).getSenderName() + "?")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent data = new Intent();
+                                            data.putExtra("userIds", new String[]{((FileLink) item).getSenderId()});
+                                            setResult(RESULT_OK, data);
+                                            JiverChatActivity.this.finish();
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    });
+                    viewHolder.getView("img_file_container").setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            new AlertDialog.Builder(mContext)
+                                    .setTitle("JIVER")
+                                    .setMessage("Do you want to download this file?")
+                                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            try {
+                                                downloadUrl((FileLink) item, mContext);
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .create()
+                                    .show();
+                        }
+                    });
                     break;
             }
 
             return convertView;
         }
 
-        private static class ViewHolder {
+        private class ViewHolder {
             private Hashtable<String, View> holder = new Hashtable<String, View>();
             private int type;
 
