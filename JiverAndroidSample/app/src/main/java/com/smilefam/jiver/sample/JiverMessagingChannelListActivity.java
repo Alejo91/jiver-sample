@@ -258,12 +258,6 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
         overridePendingTransition(R.anim.jiver_slide_in_from_top, R.anim.jiver_slide_out_to_bottom);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-
     private void initFragment() {
         mJiverMessagingChannelAdapter = new JiverMessagingChannelAdapter(this);
 
