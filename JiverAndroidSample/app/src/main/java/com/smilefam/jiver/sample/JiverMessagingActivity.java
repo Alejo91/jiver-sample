@@ -52,11 +52,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.smilefam.jia.Jiver;
-import com.smilefam.jia.JiverEventHandler;
-import com.smilefam.jia.JiverFileUploadEventHandler;
-import com.smilefam.jia.JiverNotificationHandler;
-import com.smilefam.jia.MessageListQuery;
+import com.smilefam.jia.*;
 import com.smilefam.jia.model.BroadcastMessage;
 import com.smilefam.jia.model.Channel;
 import com.smilefam.jia.model.FileInfo;
@@ -166,6 +162,12 @@ public class JiverMessagingActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(mJiverInfo.getBoolean("do_not_disconnect_on_pause", false)) {
+            // Still connected. Do not retry to connect.
+            mJiverInfo.putBoolean("do_not_disconnect_on_pause", false);
+            return;
+        }
+
         if(mTimer != null) {
             mTimer.cancel();
         }
@@ -197,10 +199,12 @@ public class JiverMessagingActivity extends FragmentActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mTimer != null) {
-            mTimer.cancel();
+        if(!mJiverInfo.getBoolean("do_not_disconnect_on_pause", false)) {
+            if (mTimer != null) {
+                mTimer.cancel();
+            }
+            Jiver.disconnect();
         }
-        Jiver.disconnect();
     }
 
     @Override
@@ -222,6 +226,11 @@ public class JiverMessagingActivity extends FragmentActivity {
             @Override
             public void onChannelListClicked() {
                 startActivityForResult(new Intent(JiverMessagingActivity.this, JiverMessagingChannelListActivity.class), REQUEST_MESSAGING_CHANNEL_LIST);
+            }
+
+            @Override
+            public void onDoNotDisconnectOnPause() {
+                mJiverInfo.putBoolean("do_not_disconnect_on_pause", true);
             }
         });
 
@@ -492,6 +501,7 @@ public class JiverMessagingActivity extends FragmentActivity {
 
         public static interface JiverChatHandler {
             public void onChannelListClicked();
+            public void onDoNotDisconnectOnPause();
         }
 
         public void setJiverChatHandler(JiverChatHandler handler) {
@@ -542,6 +552,10 @@ public class JiverMessagingActivity extends FragmentActivity {
             mBtnUpload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(mHandler != null) {
+                        mHandler.onDoNotDisconnectOnPause();
+                    }
+
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
