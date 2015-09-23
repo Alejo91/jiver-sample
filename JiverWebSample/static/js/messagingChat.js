@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 
 function init() {
-  nickName = getUrlVars()['nickname'];
+  nickName = decodeURI(decodeURIComponent(getUrlVars()['nickname']));
   console.log(nickName);
 
   startJiver(nickName);

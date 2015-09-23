@@ -24,15 +24,15 @@ $(document).ready(function() {
   });
 
   $('#btn_open_chat_list').click(function() {
-    window.location.href = 'open-chat.html?nickname=' + userNickName;
+    window.location.href = 'open-chat.html?nickname=' + encodeURI(encodeURIComponent(userNickName));
   });
 
   $('#btn_start_msg_chat').click(function() {
-    window.location.href = 'msg-chat.html?nickname=' + userNickName + '&type=start';
+    window.location.href = 'msg-chat.html?nickname=' + encodeURI(encodeURIComponent(userNickName)) + '&type=start';
   });
 
   $('#btn_Msg_Chat_List').click(function() {
-    window.location.href = 'msg-chat.html?nickname=' + userNickName + '&type=list';
+    window.location.href = 'msg-chat.html?nickname=' + encodeURI(encodeURIComponent(userNickName)) + '&type=list';
   });
 
 });
