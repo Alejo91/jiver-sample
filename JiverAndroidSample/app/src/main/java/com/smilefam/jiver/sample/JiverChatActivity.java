@@ -87,6 +87,7 @@ public class JiverChatActivity extends FragmentActivity {
     private View mSettingsContainer;
     private Button mBtnLeave;
     private String mChannelUrl;
+    private boolean mDoNotDisconnect;
 
 
     public static Bundle makeJiverArgs(String appKey, String uuid, String nickname, String channelUrl) {
@@ -109,42 +110,6 @@ public class JiverChatActivity extends FragmentActivity {
 
         initUIComponents();
         initJiver(getIntent().getExtras());
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        resizeMenubar();
-    }
-
-
-    private void resizeMenubar() {
-        ViewGroup.LayoutParams lp = mTopBarContainer.getLayoutParams();
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            lp.height = (int) (28 * getResources().getDisplayMetrics().density);
-        } else {
-            lp.height = (int) (48 * getResources().getDisplayMetrics().density);
-        }
-        mTopBarContainer.setLayoutParams(lp);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mJiverChatAdapter.clear();
-        mJiverChatAdapter.notifyDataSetChanged();
 
         Jiver.queryMessageList(mChannelUrl).prev(Long.MAX_VALUE, 50, new MessageListQuery.MessageListQueryResult() {
             @Override
@@ -167,10 +132,31 @@ public class JiverChatActivity extends FragmentActivity {
         });
     }
 
+
     @Override
-    protected void onPause() {
-        super.onPause();
-        Jiver.disconnect();
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        resizeMenubar();
+    }
+
+
+    private void resizeMenubar() {
+        ViewGroup.LayoutParams lp = mTopBarContainer.getLayoutParams();
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            lp.height = (int) (28 * getResources().getDisplayMetrics().density);
+        } else {
+            lp.height = (int) (48 * getResources().getDisplayMetrics().density);
+        }
+        mTopBarContainer.setLayoutParams(lp);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!mDoNotDisconnect) {
+            Jiver.disconnect();
+        }
     }
 
     @Override
@@ -178,8 +164,6 @@ public class JiverChatActivity extends FragmentActivity {
         super.finish();
         overridePendingTransition(R.anim.jiver_slide_in_from_top, R.anim.jiver_slide_out_to_bottom);
     }
-
-
 
     private void initFragment() {
         mJiverChatFragment = new JiverChatFragment();
@@ -762,6 +746,7 @@ public class JiverChatActivity extends FragmentActivity {
                                             Intent data = new Intent();
                                             data.putExtra("userIds", new String[]{((Message) item).getSenderId()});
                                             setResult(RESULT_OK, data);
+                                            mDoNotDisconnect = true;
                                             JiverChatActivity.this.finish();
                                         }
                                     })

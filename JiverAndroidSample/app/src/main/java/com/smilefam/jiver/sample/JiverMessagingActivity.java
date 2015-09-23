@@ -139,6 +139,13 @@ public class JiverMessagingActivity extends FragmentActivity {
         initUIComponents();
         initJiver(getIntent().getExtras());
 
+        if(mJiverInfo.getBoolean("start")) {
+            String [] targetUserIds = mJiverInfo.getStringArray("targetUserIds");
+            Jiver.startMessaging(Arrays.asList(targetUserIds));
+        } else if(mJiverInfo.getBoolean("join")) {
+            String channelUrl = mJiverInfo.getString("channelUrl");
+            Jiver.joinMessaging(channelUrl);
+        }
     }
 
     @Override
@@ -158,15 +165,9 @@ public class JiverMessagingActivity extends FragmentActivity {
         mTopBarContainer.setLayoutParams(lp);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
-        if(mJiverInfo.getBoolean("do_not_disconnect_on_pause", false)) {
-            // Still connected. Do not retry to connect.
-            mJiverInfo.putBoolean("do_not_disconnect_on_pause", false);
-            return;
-        }
 
         if(mTimer != null) {
             mTimer.cancel();
@@ -187,24 +188,20 @@ public class JiverMessagingActivity extends FragmentActivity {
         };
         mTimer.start();
 
-        if(mJiverInfo.getBoolean("start")) {
-            String [] targetUserIds = mJiverInfo.getStringArray("targetUserIds");
-            Jiver.startMessaging(Arrays.asList(targetUserIds));
-        } else if(mJiverInfo.getBoolean("join")) {
-            String channelUrl = mJiverInfo.getString("channelUrl");
-            Jiver.joinMessaging(channelUrl);
-        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(!mJiverInfo.getBoolean("do_not_disconnect_on_pause", false)) {
-            if (mTimer != null) {
-                mTimer.cancel();
-            }
-            Jiver.disconnect();
+        if (mTimer != null) {
+            mTimer.cancel();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Jiver.disconnect();
     }
 
     @Override
@@ -226,11 +223,6 @@ public class JiverMessagingActivity extends FragmentActivity {
             @Override
             public void onChannelListClicked() {
                 startActivityForResult(new Intent(JiverMessagingActivity.this, JiverMessagingChannelListActivity.class), REQUEST_MESSAGING_CHANNEL_LIST);
-            }
-
-            @Override
-            public void onDoNotDisconnectOnPause() {
-                mJiverInfo.putBoolean("do_not_disconnect_on_pause", true);
             }
         });
 
@@ -501,7 +493,6 @@ public class JiverMessagingActivity extends FragmentActivity {
 
         public static interface JiverChatHandler {
             public void onChannelListClicked();
-            public void onDoNotDisconnectOnPause();
         }
 
         public void setJiverChatHandler(JiverChatHandler handler) {
@@ -552,10 +543,6 @@ public class JiverMessagingActivity extends FragmentActivity {
             mBtnUpload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mHandler != null) {
-                        mHandler.onDoNotDisconnectOnPause();
-                    }
-
                     Intent intent = new Intent();
                     intent.setType("image/*");
                     intent.setAction(Intent.ACTION_GET_CONTENT);
