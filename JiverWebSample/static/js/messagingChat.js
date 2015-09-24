@@ -137,8 +137,13 @@ function messagingPanel(index, obj) {
 
   returnStr += '<div class="panel panel-default" style="margin-bottom: 10px;" id="messaging_panel_'+index+'" >' +
     '<div class="panel-body">' +
-    '<div class="col-md-8">' +
+    '<div class="col-md-6">' +
     channelName +
+    '</div>' +
+    '<div class="col-md-2">' +
+    '<span class="badge">' +
+    obj['unread_message_count'] +
+    '</span>' +
     '</div>' +
     '<div class="col-md-2">' +
     '<button class="btn btn-danger" onclick="endMessaging(\'' + index + '\', \''+obj['channel']['channel_url']+'\')">' +
