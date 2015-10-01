@@ -7,6 +7,25 @@ var channelListPage = 0;
 
 $(document).ready(function() {
 
+  $('#file_input_field').change(function() {
+    if ($('#file_input_field').val().trim().length == 0) return;
+
+    var file = $('#file_input_field')[0].files[0];
+    var fileUrl = jiver.uploadFile(file);
+    console.log(fileUrl);
+
+    var fileInfo = {
+      "url": fileUrl,
+      "name": file.name,
+      "type": file.type,
+      "size": file.size,
+      "custom": ''
+    };
+    jiver.fileMsg(fileInfo);
+
+    $('#file_input_field').val('');
+  });
+
   $('#btn_curr_member_list').click(function() {
     $('#member_canvas').html(getMemberList(currChannelUrl));
     $('#member_modal').modal('show');
@@ -63,7 +82,7 @@ $(document).ready(function() {
 
 function init() {
   nickName = decodeURI(decodeURIComponent(getUrlVars()['nickname']));
-  console.log(nickName);
+  console.log('nickname : ', nickName);
 
   startJiver(nickName);
   jiver.setDebugMessage(true);
