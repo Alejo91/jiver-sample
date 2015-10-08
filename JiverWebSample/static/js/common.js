@@ -10,6 +10,10 @@ var loadMoreScroll = false;
 var currScrollHeight = 0;
 const FILE_ICON = ['ppt', 'xls', 'pdf', 'doc'];
 
+function isCurrentUser(guestId) {
+  return (getGuestId()==guestId) ? true : false;
+};
+
 function checkGuestId() {
   var name = getGuestId();
   if (name.trim().length == 0) {
@@ -145,7 +149,7 @@ function messageList(obj) {
   var msgList = '';
 
   // this function is that compare to current user using users id that input parameter.
-  if (jiver.isCurrentUser(obj['user']['guest_id'])) {
+  if (isCurrentUser(obj['user']['guest_id'])) {
     msgList += userMessage(obj);
   } else {
     msgList += memberMessage(obj);
@@ -230,7 +234,7 @@ function fileMessageList(obj) {
   icon = $.inArray( icon, FILE_ICON ) < 0 ? 'etc' : icon;
 
   // this function is that compare to current user using users id that input parameter.
-  if (jiver.isCurrentUser(obj['user']['guest_id'])) {
+  if (isCurrentUser(obj['user']['guest_id'])) {
     msgList += userFileMessage(obj, icon);
   } else {
     msgList += memberFileMessage(obj, icon);
@@ -277,7 +281,7 @@ function imageMessageList(obj) {
   var msgList = '';
 
   // this function is that compare to current user using users id that input parameter.
-  if (jiver.isCurrentUser(obj['user']['guest_id'])) {
+  if (isCurrentUser(obj['user']['guest_id'])) {
     msgList += userImageMessage(obj);
   } else {
     msgList += memberImageMessage(obj);

@@ -228,7 +228,7 @@ function createMemberPanel(obj) {
   // member list
   var memberListHtml = '';
   $.each(obj['members'], function(index, member) {
-    if ( !jiver.isCurrentUser(member['guest_id']) ) {
+    if ( !isCurrentUser(member['guest_id']) ) {
       memberListHtml += memberPanel(index, member);
     }
   });
