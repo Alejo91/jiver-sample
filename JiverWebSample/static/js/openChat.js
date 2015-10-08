@@ -3,6 +3,7 @@
  */
 
 var nickName = null;
+var guestId = null;
 var channelListPage = 0;
 
 $(document).ready(function() {
@@ -81,10 +82,12 @@ $(document).ready(function() {
 
 
 function init() {
+  guestId = checkGuestId();
+  console.log('guestID : ', guestId);
   nickName = decodeURI(decodeURIComponent(getUrlVars()['nickname']));
   console.log('nickname : ', nickName);
 
-  startJiver(nickName);
+  startJiver(guestId, nickName);
   jiver.setDebugMessage(true);
 
   $('#btn_open_chat_list').click();

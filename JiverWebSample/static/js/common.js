@@ -10,11 +10,48 @@ var loadMoreScroll = false;
 var currScrollHeight = 0;
 const FILE_ICON = ['ppt', 'xls', 'pdf', 'doc'];
 
-function startJiver(nickName) {
+function checkGuestId() {
+  var name = getGuestId();
+  if (name.trim().length == 0) {
+    return generateUUID();
+  }
+  return name;
+}
+
+function getGuestId() {
+  var name = 'guest_id=';
+  var ca = document.cookie.split(';');
+  for (var i=0 ; i<ca.length ; i++) {
+    var c = ca[i];
+    while (c.charAt(0)==' ') c = c.substring(1);
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length,c.length);
+    }
+  }
+  return '';
+}
+
+function generateUUID() {
+  var d = new Date().getTime();
+  var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = (d + Math.random()*16)%16 | 0;
+      d = Math.floor(d/16);
+      return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+  });
+  return setCookieGuestId(uuid);
+}
+
+function setCookieGuestId(uuid) {
+  document.cookie = "guest_id=" + uuid + '; expires=Fri, 31 Dec 9999 23:59:59 GMT';
+  return uuid;
+}
+
+function startJiver(guestId, nickName) {
 
   /** JIVER Settings */
   var option = {
     app_id: appId,  // Sample JIVER app
+    guest_id: guestId, // Unique key
     user_name: nickName,  // Generate User Nickname
     image_url: '' // if you  want setting user image, set this value. if you don't, you delete this value or set empty value
   };
@@ -129,6 +166,7 @@ function convertLinkMessage(msg) {
 
   msg = msg.replace(/</g, '&lt;');
   msg = msg.replace(/>/g, '&gt;');
+  
   var urlexp = new RegExp('(http|ftp|https)://[a-z0-9\-_]+(\.[a-z0-9\-_]+)+([a-z0-9\-\.,@\?^=%&;:/~\+#]*[a-z0-9\-@\?^=%&;/~\+#])?', 'i');
   if (urlexp.test(msg)) {
     returnString += '<a href="' + msg + '" target="_blank">' + msg + '</a>';

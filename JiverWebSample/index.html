@@ -40,15 +40,32 @@
         </div>
         <div class="col-md-offset-3 col-md-6" style="margin-bottom: 10px;">
           <button class="btn btn-default" id="btn_start_msg_chat" style="width: 100%;">
-            <span class="glyphicon glyphicon-envelope" aria-hidden="true"> Start Messaging</span>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"> Start Messaging</span>
           </button>
         </div>
         <div class="col-md-offset-3 col-md-6" style="margin-bottom: 10px;">
           <button class="btn btn-default" id="btn_Msg_Chat_List" style="width: 100%;">
-            <span class="glyphicon glyphicon-user" aria-hidden="true"> Messaging List</span>
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"> Messaging List</span>
           </button>
         </div>
 
+      </div>
+
+      <div class="col-md-12" style="margin-top: 40px;">
+
+        <div class="col-md-offset-3 col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control" id="channel_url" placeholder="Enter Channel Url">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="channel_topic" placeholder="Enter Channel Topic">
+          </div>
+        </div>
+        <div class="col-md-offset-3 col-md-6" style="margin-bottom: 10px;">
+          <button class="btn btn-default" id="btn_create_channel" style="width: 100%;">
+            <span class="glyphicon glyphicon-comment" aria-hidden="true"> Create Channel</span>
+          </button>
+        </div>
       </div>
 
     </div>
@@ -63,7 +80,7 @@
   <!-- websocket -->
   <script src="static/js/jquery.gracefulWebSocket.js"></script>
   <!-- for JIVER-SDK -->
-  <script src="/static/libs/jiver-sdk-1.1.0.min.js"></script>
+  <script src="/static/libs/jiver-sdk-1.2.0.min.js"></script>
 
   <!-- for sample js -->
   <script src="/static/js/index.js"></script>

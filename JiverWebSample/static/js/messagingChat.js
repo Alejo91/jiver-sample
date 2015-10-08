@@ -3,6 +3,7 @@
  */
 
 var nickName = null;
+var guestId = null;
 var channelListPage = 0;
 
 $(document).ready(function() {
@@ -78,10 +79,12 @@ $(document).ready(function() {
 
 
 function init() {
+  guestId = checkGuestId();
+  console.log('guestID : ', guestId);
   nickName = decodeURI(decodeURIComponent(getUrlVars()['nickname']));
   console.log(nickName);
 
-  startJiver(nickName);
+  startJiver(guestId, nickName);
   jiver.setDebugMessage(false);
 
   if (getUrlVars()['type'] == 'start') {
