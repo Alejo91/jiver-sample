@@ -158,11 +158,17 @@ function messageList(obj) {
 }
 
 function userMessage(obj) {
-  return '<li class="list-group-item chat-user"><b>'+ obj['user']['name'] +' : </b> ' + convertLinkMessage(obj['message']) + '</li>';
+  return '<li class="list-group-item chat-user"><b>'+ nameInjectionCheck(obj['user']['name']) +' : </b> ' + convertLinkMessage(obj['message']) + '</li>';
 }
 
 function memberMessage(obj) {
-  return '<li class="list-group-item chat-member"><b>'+ obj['user']['name'] +' : </b> ' + convertLinkMessage(obj['message']) + '</li>';
+  return '<li class="list-group-item chat-member"><b>'+ nameInjectionCheck(obj['user']['name']) +' : </b> ' + convertLinkMessage(obj['message']) + '</li>';
+}
+
+function nameInjectionCheck(name) {
+  name = name.replace(/</g, '&lt;');
+  name = name.replace(/>/g, '&gt;');
+  return name;
 }
 
 function convertLinkMessage(msg) {
@@ -244,7 +250,7 @@ function fileMessageList(obj) {
 
 function userFileMessage(obj, icon) {
   var returnMsgString = '';
-  returnMsgString += '<li class="list-group-item chat-user"><b>'+ obj['user']['name'] +' : </b>' +
+  returnMsgString += '<li class="list-group-item chat-user"><b>'+ nameInjectionCheck(obj['user']['name']) +' : </b>' +
     obj['name'] +
     '<br>' +
     '<div class="chat-user">' +
@@ -258,7 +264,7 @@ function userFileMessage(obj, icon) {
 
 function memberFileMessage(obj, icon) {
   var returnMsgString = '';
-  returnMsgString += '<li class="list-group-item chat-member"><b>'+ obj['user']['name'] +' : </b>' +
+  returnMsgString += '<li class="list-group-item chat-member"><b>'+ nameInjectionCheck(obj['user']['name']) +' : </b>' +
     obj['name'] +
     '<br>' +
     '<div class="chat-member">' +
@@ -291,7 +297,7 @@ function imageMessageList(obj) {
 
 function userImageMessage(obj) {
   var returnMsgString = '';
-  returnMsgString += '<li class="list-group-item chat-user"><b>'+ obj['user']['name'] +' : </b>' + obj['name'] + '<br>' +
+  returnMsgString += '<li class="list-group-item chat-user"><b>'+ nameInjectionCheck(obj['user']['name']) +' : </b>' + obj['name'] + '<br>' +
     '<a href="' + obj['url'] + '" target="_blank">' +
     '<img src="' + obj['url'] + '" width="400px" onload="scrollAfterImageLoad(this)">' +
     '</a>' +
@@ -301,7 +307,7 @@ function userImageMessage(obj) {
 
 function memberImageMessage(obj) {
   var returnMsgString = '';
-  returnMsgString += '<li class="list-group-item chat-member"><b>'+ obj['user']['name'] +' : </b>' + obj['name'] + '<br>' +
+  returnMsgString += '<li class="list-group-item chat-member"><b>'+ nameInjectionCheck(obj['user']['name']) +' : </b>' + obj['name'] + '<br>' +
     '<a href="' + obj['url'] + '" target="_blank">' +
     '<img src="' + obj['url'] + '" width="400px" onload="scrollAfterImageLoad(this)">' +
     '</a>' +
