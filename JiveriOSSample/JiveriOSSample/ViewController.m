@@ -404,10 +404,13 @@
 
 - (void) startJiverWithUserName:(NSString *)userName andChatMode:(int)chatMode andViewMode:(int)viewMode
 {
-    NSString *APP_ID = @"A7A2672C-AD11-11E4-8DAA-0A18B21C2D82";
+//    NSString *APP_ID = @"A7A2672C-AD11-11E4-8DAA-0A18B21C2D82";
+    NSString *APP_ID = @"EAD881A1-3712-4A01-9483-0A1E1A6B3DEC";
     NSString *USER_ID = [JiverUtils deviceUniqueID];
+//    NSString *USER_ID = @"1234567890";
     NSString *USER_NAME = userName;
-    NSString *CHANNEL_URL = @"jia_test.Lobby";
+//    NSString *CHANNEL_URL = @"jia_test.Lobby";
+    NSString *CHANNEL_URL = @"potato.ThugLifeHomis";
     
     if (chatMode == kChatModeChatting) {
         ChattingTableViewController *viewController = [[ChattingTableViewController alloc] init];

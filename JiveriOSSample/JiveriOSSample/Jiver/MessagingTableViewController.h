@@ -21,6 +21,8 @@
 #import "MessagingIndicatorView.h"
 #import "TypingNowView.h"
 #import "MessagingChannelTableViewCell.h"
+#import "MessagingMyStructuredMessageTableViewCell.h"
+#import "MessagingStructuredMessageTableViewCell.h"
 
 @interface MessagingTableViewController : UIViewController
 

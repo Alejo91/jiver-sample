@@ -24,6 +24,7 @@
 #import "JiverWSClient.h"
 #import "JiverMessagingUnreadCountQuery.h"
 #import "JiverMention.h"
+#import "JiverStructuredMessage.h"
 
 #define kJiverInitWithIDFA 0
 #define kJiverInitWithIDFV 1
@@ -42,6 +43,7 @@ typedef enum {
     JiverDataTypeReadStatus,
     JiverDataTypeStartTyping,
     JiverDataTypeEndTyping,
+    JiverDataTypeStructuredMessage,
 } JiverDataType;
 
 @class JiverChannelListQuery;
@@ -113,7 +115,7 @@ typedef enum {
 + (NSString *) getUserName;
 
 
-+ (void) setEventHandlerConnectBlock:(void (^)(JiverChannel *channel))connect errorBlock:(void (^)(NSInteger code))error channelLeftBlock:(void (^)(JiverChannel *channel))channelLeft messageReceivedBlock:(void (^)(JiverMessage *message))messageReceived systemMessageReceivedBlock:(void (^)(JiverSystemMessage *message))systemMessageReceived broadcastMessageReceivedBlock:(void (^)(JiverBroadcastMessage *message))broadcastMessageReceived fileReceivedBlock:(void (^)(JiverFileLink *fileLink))fileReceived messagingStartedBlock:(void (^)(JiverMessagingChannel *channel))messagingStarted messagingUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingUpdated messagingEndedBlock:(void (^)(JiverMessagingChannel *channel))messagingEnded allMessagingEndedBlock:(void (^)())allMessagingEnded messagingHiddenBlock:(void (^)(JiverMessagingChannel *channel))messagingHidden allMessagingHiddenBlock:(void (^)())allMessagingHidden readReceivedBlock:(void (^)(JiverReadStatus *status))readReceived typeStartReceivedBlock:(void (^)(JiverTypeStatus *status))typeStartReceived typeEndReceivedBlock:(void (^)(JiverTypeStatus *status))typeEndReceived allDataReceivedBlock:(void (^)(NSUInteger jiverDataType, int count))allDataReceived messageDeliveryBlock:(void (^)(BOOL send, NSString *message, NSString *data, NSString *messageId))messageDelivery;
++ (void) setEventHandlerConnectBlock:(void (^)(JiverChannel *channel))connect errorBlock:(void (^)(NSInteger code))error channelLeftBlock:(void (^)(JiverChannel *channel))channelLeft messageReceivedBlock:(void (^)(JiverMessage *message))messageReceived systemMessageReceivedBlock:(void (^)(JiverSystemMessage *message))systemMessageReceived broadcastMessageReceivedBlock:(void (^)(JiverBroadcastMessage *message))broadcastMessageReceived fileReceivedBlock:(void (^)(JiverFileLink *fileLink))fileReceived structuredMessageReceivedBlock:(void (^)(JiverStructuredMessage *message))structuredMessageReceived messagingStartedBlock:(void (^)(JiverMessagingChannel *channel))messagingStarted messagingUpdatedBlock:(void (^)(JiverMessagingChannel *channel))messagingUpdated messagingEndedBlock:(void (^)(JiverMessagingChannel *channel))messagingEnded allMessagingEndedBlock:(void (^)())allMessagingEnded messagingHiddenBlock:(void (^)(JiverMessagingChannel *channel))messagingHidden allMessagingHiddenBlock:(void (^)())allMessagingHidden readReceivedBlock:(void (^)(JiverReadStatus *status))readReceived typeStartReceivedBlock:(void (^)(JiverTypeStatus *status))typeStartReceived typeEndReceivedBlock:(void (^)(JiverTypeStatus *status))typeEndReceived allDataReceivedBlock:(void (^)(NSUInteger jiverDataType, int count))allDataReceived messageDeliveryBlock:(void (^)(BOOL send, NSString *message, NSString *data, NSString *messageId))messageDelivery;
 
 + (JiverChannel *) getCurrentChannel;
 
@@ -167,8 +169,8 @@ typedef enum {
 + (JiverMessageListQuery *) queryMessageListInChannel:(NSString *)channelUrl;
 + (JiverMessagingUnreadCountQuery *) queryMessagingUnreadCount;
 
-+ (void) setLastMessageMills:(long long)lastMessageMills;
-+ (long long) getLastMessageMills;
+//+ (void) setLastMessageMills:(long long)lastMessageMills;
+//+ (long long) getLastMessageMills;
 
 + (void) messageReceived:(JiverMessage *)msg DEPRECATED_ATTRIBUTE;
 + (void) fileReceived:(JiverFileLink *)fileLink DEPRECATED_ATTRIBUTE;

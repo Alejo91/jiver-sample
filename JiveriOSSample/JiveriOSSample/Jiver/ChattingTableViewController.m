@@ -13,6 +13,7 @@
 #define kSystemMessageCellIdentifier @"SystemMessageReuseIdentifier"
 #define kFileMessageCellIdentifier @"FileMessageReuseIdentifier"
 #define kBroadcastMessageCellIdentifier @"BroadcastMessageReuseIdentifier"
+#define kStructuredMessageCellIdentifier @"StructuredMessageReuseIdentifier"
 
 #define kActionSheetTagUrl 0
 #define kActionSheetTagImage 1
@@ -29,6 +30,7 @@
     SystemMessageTableViewCell *systemMessageSizingTableViewCell;
     FileMessageTableViewCell *fileMessageSizingTableViewCell;
     BroadcastMessageTableViewCell *broadcastMessageSizingTableViewCell;
+    StructuredMessageTableViewCell *structuredMessageSizingTableViewCell;
     
     NSMutableArray *imageCache;
     NSMutableDictionary *cellHeight;
@@ -210,6 +212,11 @@
         [messageArray addJiverMessage:fileLink updateMessageTsBlock:updateMessageTs];
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
+    } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
+        NSLog(@"Title: %@", [message structuredMessageTitle]);
+        [self updateChannelTitle];
+        [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
+        [self setIndicatorHidden:YES];
     } messagingStartedBlock:^(JiverMessagingChannel *channel) {
         
     } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
@@ -251,7 +258,9 @@
                 }
             }
             [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([messageArray count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            if ([messageArray count] > 0) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([messageArray count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
             [Jiver connectWithMessageTs:mMaxMessageTs];
         } endBlock:^(NSError *error) {
             
@@ -310,6 +319,7 @@
     [self.tableView registerClass:[FileLinkTableViewCell class] forCellReuseIdentifier:kFileLinkCellIdentifier];
     [self.tableView registerClass:[FileMessageTableViewCell class] forCellReuseIdentifier:kFileMessageCellIdentifier];
     [self.tableView registerClass:[BroadcastMessageTableViewCell class] forCellReuseIdentifier:kBroadcastMessageCellIdentifier];
+    [self.tableView registerClass:[StructuredMessageTableViewCell class] forCellReuseIdentifier:kStructuredMessageCellIdentifier];
     [self.view addSubview:self.tableView];
     
     messageSizingTableViewCell = [[MessageTableViewCell alloc] initWithFrame:self.view.frame];
@@ -331,6 +341,11 @@
     [broadcastMessageSizingTableViewCell setTranslatesAutoresizingMaskIntoConstraints:NO];
     [broadcastMessageSizingTableViewCell setHidden:YES];
     [self.view addSubview:broadcastMessageSizingTableViewCell];
+    
+    structuredMessageSizingTableViewCell = [[StructuredMessageTableViewCell alloc] initWithFrame:self.view.frame];
+    [structuredMessageSizingTableViewCell setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [structuredMessageSizingTableViewCell setHidden:YES];
+    [self.view addSubview:structuredMessageSizingTableViewCell];
     
     self.messageInputView = [[ChatMessageInputView alloc] init];
     [self.messageInputView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -483,6 +498,9 @@
     else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverBroadcastMessage class]]) {
         cell = [tableView dequeueReusableCellWithIdentifier:kBroadcastMessageCellIdentifier];
     }
+    else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:kStructuredMessageCellIdentifier];
+    }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:kSystemMessageCellIdentifier];
     }
@@ -504,6 +522,10 @@
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverBroadcastMessage class]]){
             cell = [[BroadcastMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBroadcastMessageCellIdentifier];
         }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]){
+            cell = [[StructuredMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStructuredMessageCellIdentifier];
+            NSLog(@"528");
+        }
         else {
             cell = [[SystemMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kSystemMessageCellIdentifier];
         }
@@ -524,6 +546,9 @@
         }
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverBroadcastMessage class]]){
             [(BroadcastMessageTableViewCell *)cell setModel:[messageArray objectAtIndex:indexPath.row]];
+        }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]){
+            [(StructuredMessageTableViewCell *)cell setModel:[messageArray objectAtIndex:indexPath.row]];
         }
         else {
             [(SystemMessageTableViewCell *)cell setModel:[messageArray objectAtIndex:indexPath.row]];
@@ -551,6 +576,10 @@
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverFileLink class]]) {
             ts = [(JiverFileLink *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
         }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+            NSLog(@"579");
+            ts = [(JiverStructuredMessage *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
+        }
         
         calculatedHeight = [[cellHeight objectForKey:[NSNumber numberWithLongLong:ts]] floatValue];
     }
@@ -565,6 +594,11 @@
             [broadcastMessageSizingTableViewCell setModel:(JiverBroadcastMessage *)[messageArray objectAtIndex:indexPath.row]];
             calculatedHeight = [broadcastMessageSizingTableViewCell getHeightOfViewCell:self.view.frame.size.width];
             ts = [(JiverBroadcastMessage *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
+        }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+            [structuredMessageSizingTableViewCell setModel:(JiverStructuredMessage *)[messageArray objectAtIndex:indexPath.row]];
+            calculatedHeight = [structuredMessageSizingTableViewCell getHeightOfViewCell:self.view.frame.size.width];
+            ts = [(JiverStructuredMessage *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
         }
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverFileLink class]]) {
             JiverFileLink *fileLink = [messageArray objectAtIndex:indexPath.row];

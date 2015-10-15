@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/Jiver.h</key>
 		<data>
-		baLdQ6aaR5ZQNVgwcfhidHbl2i0=
+		A+lIbIdkCUMBiGuPioJ9/2aGQxE=
 		</data>
 		<key>Headers/JiverAPIClient.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/JiverClient.h</key>
 		<data>
-		cmrmqnqaNOeMXJxuNItSY311NAg=
+		vKKPxxZxIYR/HC20jPn0AlnL89M=
 		</data>
 		<key>Headers/JiverCommand.h</key>
 		<data>
@@ -80,6 +80,10 @@
 		<data>
 		qwk5fRRjwJHHuHBEG38G1mA0rgc=
 		</data>
+		<key>Headers/JiverMessagingChannelUpdate.h</key>
+		<data>
+		1IMMdl6AnXS4GGcdYjwy8rTinCs=
+		</data>
 		<key>Headers/JiverMessagingUnreadCountQuery.h</key>
 		<data>
 		ff0b8odNEwVrt3W1hv8d294W7Fg=
@@ -95,6 +99,10 @@
 		<key>Headers/JiverSender.h</key>
 		<data>
 		Ha3gMjm3K4ypWBETBw1y0Ojogmk=
+		</data>
+		<key>Headers/JiverStructuredMessage.h</key>
+		<data>
+		rg94e33u0A6e22yQaip9/l7lkKk=
 		</data>
 		<key>Headers/JiverSystemMessage.h</key>
 		<data>
@@ -129,7 +137,7 @@
 	<dict>
 		<key>Headers/Jiver.h</key>
 		<data>
-		baLdQ6aaR5ZQNVgwcfhidHbl2i0=
+		A+lIbIdkCUMBiGuPioJ9/2aGQxE=
 		</data>
 		<key>Headers/JiverAPIClient.h</key>
 		<data>
@@ -149,7 +157,7 @@
 		</data>
 		<key>Headers/JiverClient.h</key>
 		<data>
-		cmrmqnqaNOeMXJxuNItSY311NAg=
+		vKKPxxZxIYR/HC20jPn0AlnL89M=
 		</data>
 		<key>Headers/JiverCommand.h</key>
 		<data>
@@ -203,6 +211,10 @@
 		<data>
 		qwk5fRRjwJHHuHBEG38G1mA0rgc=
 		</data>
+		<key>Headers/JiverMessagingChannelUpdate.h</key>
+		<data>
+		1IMMdl6AnXS4GGcdYjwy8rTinCs=
+		</data>
 		<key>Headers/JiverMessagingUnreadCountQuery.h</key>
 		<data>
 		ff0b8odNEwVrt3W1hv8d294W7Fg=
@@ -218,6 +230,10 @@
 		<key>Headers/JiverSender.h</key>
 		<data>
 		Ha3gMjm3K4ypWBETBw1y0Ojogmk=
+		</data>
+		<key>Headers/JiverStructuredMessage.h</key>
+		<data>
+		rg94e33u0A6e22yQaip9/l7lkKk=
 		</data>
 		<key>Headers/JiverSystemMessage.h</key>
 		<data>

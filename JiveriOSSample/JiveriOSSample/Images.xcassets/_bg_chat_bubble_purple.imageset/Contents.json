@@ -8,11 +8,11 @@
       "resizing" : {
         "mode" : "9-part",
         "center" : {
-          "mode" : "fill",
+          "mode" : "tile",
           "width" : 1,
           "height" : 1
         },
-        "capInsets" : {
+        "cap-insets" : {
           "bottom" : 18,
           "top" : 16,
           "right" : 30,
@@ -20,7 +20,7 @@
         }
       },
       "idiom" : "universal",
-      "filename" : "bg_chat_bubble_purple@2x.png",
+      "filename" : "bg_chat_bubble_purple.png",
       "scale" : "2x"
     },
     {
