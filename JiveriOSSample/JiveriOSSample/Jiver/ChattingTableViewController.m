@@ -213,7 +213,6 @@
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
     } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
-        NSLog(@"Title: %@", [message structuredMessageTitle]);
         [self updateChannelTitle];
         [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
         [self setIndicatorHidden:YES];

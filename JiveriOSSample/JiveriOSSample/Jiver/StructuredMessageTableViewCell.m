@@ -250,7 +250,6 @@
 
 - (void) setModel:(JiverStructuredMessage *)model
 {
-    NSLog(@"%@", model.toJson);
     self.structuredMessage = model;
     [self.titleLabel setText:[model structuredMessageTitle]];
     [self.descLabel setText:[model structuredMessageDesc]];

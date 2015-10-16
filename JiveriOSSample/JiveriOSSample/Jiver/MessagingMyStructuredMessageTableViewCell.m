@@ -506,7 +506,6 @@
 - (CGFloat)getHeightOfViewCell:(CGFloat)totalWidth
 {
     NSString *titleText = self.titleLabel.text;
-    NSLog(@"Title: %@", titleText);
     for (int i = 0; i < [titleText length]; i++) {
         NSRange tmpRange = NSMakeRange(0, i);
         NSString *tempTitleText = [titleText substringWithRange:tmpRange];

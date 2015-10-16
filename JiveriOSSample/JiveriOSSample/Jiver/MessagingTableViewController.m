@@ -418,6 +418,7 @@
         
     } messageReceivedBlock:^(JiverMessage *message) {
         [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
+        [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [Jiver markAsRead];
         [self setIndicatorHidden:YES];
     } systemMessageReceivedBlock:^(JiverSystemMessage *message) {
@@ -433,7 +434,9 @@
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
     } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
+        NSLog(@"structuredMessageReceivedBlock: updateMessageTs=%lld", [message getMessageTimestamp]);
         [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
+        [Jiver markAsRead];
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
     } messagingStartedBlock:^(JiverMessagingChannel *channel) {
@@ -455,7 +458,6 @@
         [[Jiver queryMessageListInChannel:[channel getUrl]] loadWithMessageTs:mMaxMessageTs prevLimit:30 andNextLimit:10 resultBlock:^(NSMutableArray *queryResult) {
             for (JiverMessageModel *model in queryResult) {
                 [messageArray addJiverMessage:model updateMessageTsBlock:updateMessageTs];
-                NSLog(@"Message: %@", model);
             }
             [self.tableView reloadData];
             
@@ -593,7 +595,8 @@
     viewMode = kMessagingMemberForGroupChatViewMode;
     [self setNavigationButton];
     [self.channelMemberListTableView setHidden:NO];
-    memberListQuery = [Jiver queryMemberListInChannel:@"jia_test.Lobby"];
+//    memberListQuery = [Jiver queryMemberListInChannel:@"jia_test.Lobby"];
+    memberListQuery = [Jiver queryMemberListInChannel:@"potato.ThugLifeHomis"];
     [memberListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
         if ([memberListQuery getCurrentPage] == 1) {
             [membersInChannel removeAllObjects];
@@ -620,6 +623,7 @@
 
 - (void)scrollToBottomWithReloading:(BOOL)reload force:(BOOL)force animated:(BOOL)animated
 {
+    NSLog(@"626: Try to scroll");
     if (reload) {
         [self.tableView reloadData];
     }
@@ -627,8 +631,10 @@
     if (scrolling) {
         return;
     }
-    
+    NSLog(@"634: Try to scroll: pastMessageLoading - %d", pastMessageLoading);
+    NSLog(@"635: Try to scroll: [self isScrollBottom] - %d", [self isScrollBottom]);
     if (pastMessageLoading || [self isScrollBottom] || force) {
+        NSLog(@"637: Try to scroll");
         unsigned long msgCount = [messageArray count];
         if (msgCount > 0) {
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(msgCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
@@ -1058,7 +1064,7 @@
     float y = offset.y + bounds.size.height - inset.bottom;
     float h = size.height;
     
-    if (y >= (h-160)) {
+    if (y >= (h-400)) {
         return YES;
     }
     return NO;
@@ -1101,7 +1107,8 @@
             float y = offset.y + bounds.size.height - inset.bottom;
             float h = size.height;
             if (y > h - 5 && endDragging == YES) {
-                [[Jiver queryMessageListInChannel:[Jiver getChannelUrl]] nextWithMessageTs:mMaxMessageTs andLimit:30 resultBlock:^(NSMutableArray *queryResult) {
+                NSLog(@"scroll mMaxMessageTs: %lld", mMinMessageTs);
+                [[Jiver queryMessageListInChannel:[Jiver getChannelUrl]] prevWithMessageTs:mMinMessageTs andLimit:30 resultBlock:^(NSMutableArray *queryResult) {
                     if ([queryResult count] <= 0) {
                         return;
                     }
