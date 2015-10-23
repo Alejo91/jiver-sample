@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		19EE21561281E5F5C0B5A85CFDC1A411 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636BC752E7946EF6919A00D1F8EAE693 /* Foundation.framework */; };
-		5AFE5B061BD075D300404F4F /* JiverSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFE5B051BD075D300404F4F /* JiverSDK.framework */; settings = {ASSET_TAGS = (); }; };
 		B991A49F4C12A4F8462C02B69D83DB11 /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F544E664EA23C82471AAB47D479D781B /* Pods-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		15A529C27057E4A57D259CBC6E6CE49C /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
 		52E7940511FDA2A39D03D6314FF52A14 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		5AFE5B051BD075D300404F4F /* JiverSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JiverSDK.framework; sourceTree = "<group>"; };
 		636BC752E7946EF6919A00D1F8EAE693 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		641AE05DD55E5E6AC1590CD7B4A18F97 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		877CBBC27DF9BECC200A09F7A3D30CF0 /* JiverSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JiverSDK.framework; sourceTree = "<group>"; };
 		AEEDA5F6291892906F3CBBF39B8BC98F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		BF59BC15D23E1E1912C8F334E7236813 /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -30,7 +29,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5AFE5B061BD075D300404F4F /* JiverSDK.framework in Frameworks */,
 				19EE21561281E5F5C0B5A85CFDC1A411 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,7 +74,7 @@
 		8E238BFBC94F3A7DADD2EEC167DA0F89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5AFE5B051BD075D300404F4F /* JiverSDK.framework */,
+				877CBBC27DF9BECC200A09F7A3D30CF0 /* JiverSDK.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -254,11 +252,6 @@
 			baseConfigurationReference = 52E7940511FDA2A39D03D6314FF52A14 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/JiverSDK",
-					"$(PROJECT_DIR)",
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
@@ -275,11 +268,6 @@
 			baseConfigurationReference = D8BD958428D96BF44A7F66233BB47BE6 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/JiverSDK",
-					"$(PROJECT_DIR)",
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";

@@ -17,6 +17,7 @@
 
 #define kActionSheetTagUrl 0
 #define kActionSheetTagImage 1
+#define kActionSheetTagStructuredMessage 2
 
 @interface ChattingTableViewController ()<UITableViewDataSource, UITableViewDelegate, ChatMessageInputViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, FileLinkTableViewCellDelegate, UIActionSheetDelegate>
 @end
@@ -212,10 +213,11 @@
         [messageArray addJiverMessage:fileLink updateMessageTsBlock:updateMessageTs];
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
-    } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
-        [self updateChannelTitle];
-        [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
-        [self setIndicatorHidden:YES];
+    // TODO
+//    } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
+//        [self updateChannelTitle];
+//        [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
+//        [self setIndicatorHidden:YES];
     } messagingStartedBlock:^(JiverMessagingChannel *channel) {
         
     } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
@@ -629,20 +631,26 @@
         NSString *msgString = [message message];
         NSString *url = [JiverUtils getUrlFromString:msgString];
         if ([url length] > 0) {
-            [self clickURL:[NSURL URLWithString:url]];
+            [self clickURL:url];
         }
     }
     else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverFileLink class]]) {
         JiverFileLink *fileLink = [messageArray objectAtIndex:indexPath.row];
         if ([[[fileLink fileInfo] type] hasPrefix:@"image"]) {
-            [self clickImage:[NSURL URLWithString:[[fileLink fileInfo] url]]];
+            [self clickImage:[[fileLink fileInfo] url]];
+        }
+    }
+    else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+        JiverStructuredMessage *message = [messageArray objectAtIndex:indexPath.row];
+        if ([[message structuredMessageUrl] length] > 0) {
+            [self clickStructuredMessage:[message structuredMessageUrl]];
         }
     }
 }
 
-- (void) clickURL:(NSURL *)url
+- (void) clickURL:(NSString *)url
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[url absoluteString]
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
@@ -651,9 +659,9 @@
     [actionSheet showInView:self.view];
 }
 
-- (void) clickImage:(NSURL *)url
+- (void) clickImage:(NSString *)url
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[url absoluteString]
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
@@ -662,16 +670,28 @@
     [actionSheet showInView:self.view];
 }
 
+- (void) clickStructuredMessage:(NSString *)url
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Open", nil];
+    [actionSheet setTag:kActionSheetTagStructuredMessage];
+    [actionSheet showInView:self.view];
+}
+
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(actionSheet.tag == kActionSheetTagUrl || actionSheet.tag == kActionSheetTagImage)
+    if(actionSheet.tag == kActionSheetTagUrl || actionSheet.tag == kActionSheetTagImage || actionSheet.tag == kActionSheetTagStructuredMessage)
     {
         if (buttonIndex == actionSheet.cancelButtonIndex) {
             return;
         }
         
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+        NSString *encodedUrl = [actionSheet.title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:encodedUrl]];
     }
 }
 

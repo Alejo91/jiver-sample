@@ -24,6 +24,7 @@
 #define kActionSheetTagUrl 0
 #define kActionSheetTagImage 1
 #define kActionSheetTagLobbyMember 2
+#define kActionSheetTagStructuredMessage 3
 #define kTypingViewHeight 36.0
 
 @interface MessagingTableViewController ()<UITableViewDataSource, UITableViewDelegate, MessageInputViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, UIActionSheetDelegate, UIGestureRecognizerDelegate>
@@ -433,12 +434,13 @@
         [messageArray addJiverMessage:fileLink updateMessageTsBlock:updateMessageTs];
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
-    } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
-        NSLog(@"structuredMessageReceivedBlock: updateMessageTs=%lld", [message getMessageTimestamp]);
-        [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
-        [Jiver markAsRead];
-        [self scrollToBottomWithReloading:YES force:NO animated:NO];
-        [self setIndicatorHidden:YES];
+    // TODO
+//    } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
+//        NSLog(@"structuredMessageReceivedBlock: updateMessageTs=%lld", [message getMessageTimestamp]);
+//        [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
+//        [Jiver markAsRead];
+//        [self scrollToBottomWithReloading:YES force:NO animated:NO];
+//        [self setIndicatorHidden:YES];
     } messagingStartedBlock:^(JiverMessagingChannel *channel) {
         self.currentMessagingChannel = channel;
         self.channelUrl = channel.channel.url;
@@ -548,6 +550,7 @@
         [self.messagingChannelListTableView setHidden:NO];
         messagingChannelListQuery = [Jiver queryMessagingChannelList];
         [messagingChannelListQuery executeWithResultBlock:^(NSMutableArray *queryResult) {
+            NSLog(@"%@", queryResult);
             [messagingChannels removeAllObjects];
             [messagingChannels addObjectsFromArray:queryResult];
             [self.messagingChannelListTableView reloadData];
@@ -623,7 +626,6 @@
 
 - (void)scrollToBottomWithReloading:(BOOL)reload force:(BOOL)force animated:(BOOL)animated
 {
-    NSLog(@"626: Try to scroll");
     if (reload) {
         [self.tableView reloadData];
     }
@@ -631,10 +633,8 @@
     if (scrolling) {
         return;
     }
-    NSLog(@"634: Try to scroll: pastMessageLoading - %d", pastMessageLoading);
-    NSLog(@"635: Try to scroll: [self isScrollBottom] - %d", [self isScrollBottom]);
+
     if (pastMessageLoading || [self isScrollBottom] || force) {
-        NSLog(@"637: Try to scroll");
         unsigned long msgCount = [messageArray count];
         if (msgCount > 0) {
             [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(msgCount - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:animated];
@@ -1554,6 +1554,13 @@
                 [self clickImage:[NSURL URLWithString:[[fileLink fileInfo] url]]];
             }
         }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+            JiverStructuredMessage *message = [messageArray objectAtIndex:indexPath.row];
+            NSLog(@"URL: %@", [message structuredMessageUrl]);
+            if ([[message structuredMessageUrl] length] > 0) {
+                [self clickStructuredMessage:[message structuredMessageUrl]];
+            }
+        }
     }
 }
 
@@ -1605,16 +1612,29 @@
     [actionSheet showInView:self.view];
 }
 
+- (void) clickStructuredMessage:(NSString *)url
+{
+    NSLog(@"URL: %@", url);
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Open", nil];
+    [actionSheet setTag:kActionSheetTagStructuredMessage];
+    [actionSheet showInView:self.view];
+}
+
+
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (actionSheet.tag == kActionSheetTagUrl || actionSheet.tag == kActionSheetTagImage)
+    if (actionSheet.tag == kActionSheetTagUrl || actionSheet.tag == kActionSheetTagImage || actionSheet.tag == kActionSheetTagStructuredMessage)
     {
         if (buttonIndex == actionSheet.cancelButtonIndex) {
             return;
         }
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+        NSString *encodedUrl = [actionSheet.title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:encodedUrl]];
     }
     else if (actionSheet.tag == kActionSheetTagLobbyMember) {
         if (buttonIndex == actionSheet.cancelButtonIndex) {
