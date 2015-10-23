@@ -291,7 +291,7 @@
         
         mMaxMessageTs = mMaxMessageTs < [model getMessageTimestamp] ? [model getMessageTimestamp] : mMaxMessageTs;
         mMinMessageTs = mMinMessageTs > [model getMessageTimestamp] ? [model getMessageTimestamp] : mMinMessageTs;
-        
+
         [JiverUtils setMessagingMaxMessageTs:mMaxMessageTs];
     };
     
