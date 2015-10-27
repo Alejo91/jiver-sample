@@ -33,3 +33,4 @@ FOUNDATION_EXPORT const unsigned char JiverSDKVersionString[];
 #import <JiverSDK/JiverMember.h>
 #import <JiverSDK/JiverMessageListQuery.h>
 #import <JiverSDK/JiverMessagingUnreadCountQuery.h>
+#import <JiverSDK/JiverMessagingChannelUpdate.h>

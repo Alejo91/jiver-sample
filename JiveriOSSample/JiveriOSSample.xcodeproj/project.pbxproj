@@ -36,9 +36,9 @@
 		5A11377E1B68CBD500247158 /* MessagingFileMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A11377D1B68CBD500247158 /* MessagingFileMessageTableViewCell.m */; };
 		5A1137811B68CC4000247158 /* MessagingIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137801B68CC4000247158 /* MessagingIndicatorView.m */; };
 		5A1137841B68CC8200247158 /* MessagingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1137831B68CC8200247158 /* MessagingTableViewController.m */; };
-		5AFE5AE41BCE78F100404F4F /* StructuredMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE5AE31BCE78F100404F4F /* StructuredMessageTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		5AFE5AFB1BCF8E9000404F4F /* MessagingMyStructuredMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE5AFA1BCF8E9000404F4F /* MessagingMyStructuredMessageTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		5AFE5AFE1BCF938A00404F4F /* MessagingStructuredMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE5AFD1BCF938A00404F4F /* MessagingStructuredMessageTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		5AFE5AE41BCE78F100404F4F /* StructuredMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE5AE31BCE78F100404F4F /* StructuredMessageTableViewCell.m */; };
+		5AFE5AFB1BCF8E9000404F4F /* MessagingMyStructuredMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE5AFA1BCF8E9000404F4F /* MessagingMyStructuredMessageTableViewCell.m */; };
+		5AFE5AFE1BCF938A00404F4F /* MessagingStructuredMessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFE5AFD1BCF938A00404F4F /* MessagingStructuredMessageTableViewCell.m */; };
 		857B260B87AD2C84E6B1EC7F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 443901047442C103FB163427 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -340,6 +340,7 @@
 				5A1136D71B687B5300247158 /* Frameworks */,
 				5A1136D81B687B5300247158 /* Resources */,
 				97ED7300C4DF437E0AA4420D /* Copy Pods Resources */,
+				C2F3A639E8E5541FB4CBE2A8 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -437,6 +438,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2F3A639E8E5541FB4CBE2A8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DCC5D5853F59DF9B275C444D /* Check Pods Manifest.lock */ = {
