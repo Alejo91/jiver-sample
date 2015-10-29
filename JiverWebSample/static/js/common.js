@@ -8,7 +8,7 @@ var currChannelInfo = {};
 var currChannelUrl = null;
 var loadMoreScroll = false;
 var currScrollHeight = 0;
-const FILE_ICON = ['ppt', 'xls', 'pdf', 'doc'];
+var FILE_ICON = ['ppt', 'xls', 'pdf', 'doc'];
 
 function isCurrentUser(guestId) {
   return (getGuestId()==guestId) ? true : false;
