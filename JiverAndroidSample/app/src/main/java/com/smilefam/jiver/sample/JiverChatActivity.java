@@ -272,37 +272,46 @@ public class JiverChatActivity extends FragmentActivity {
 
             @Override
             public void onMessageDelivery(boolean sent, String message, String data, String id) {
-               if(!sent) {
-                   mJiverChatFragment.mEtxtMessage.setText(message);
-               }
+                if (!sent) {
+                    mJiverChatFragment.mEtxtMessage.setText(message);
+                }
             }
 
             @Override
-            public void onReadReceived(ReadStatus readStatus) { }
+            public void onReadReceived(ReadStatus readStatus) {
+            }
 
             @Override
-            public void onTypeStartReceived(TypeStatus typeStatus) { }
+            public void onTypeStartReceived(TypeStatus typeStatus) {
+            }
 
             @Override
-            public void onTypeEndReceived(TypeStatus typeStatus) { }
+            public void onTypeEndReceived(TypeStatus typeStatus) {
+            }
 
             @Override
-            public void onMessagingStarted(MessagingChannel messagingChannel) { }
+            public void onMessagingStarted(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onMessagingUpdated(MessagingChannel messagingChannel) { }
+            public void onMessagingUpdated(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onMessagingEnded(MessagingChannel messagingChannel) { }
+            public void onMessagingEnded(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onAllMessagingEnded() { }
+            public void onAllMessagingEnded() {
+            }
 
             @Override
-            public void onMessagingHidden(MessagingChannel messagingChannel) { }
+            public void onMessagingHidden(MessagingChannel messagingChannel) {
+            }
 
             @Override
-            public void onAllMessagingHidden() { }
+            public void onAllMessagingHidden() {
+            }
 
         });
     }
