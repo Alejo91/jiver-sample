@@ -178,9 +178,6 @@
 
 - (void) startMessagingWithUser:(NSString *)targetUserId
 {
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"open_messaging" object:targetUserId];
-//    [self dismissViewControllerAnimated:NO completion:nil];
-    
     MessagingTableViewController *viewController = [[MessagingTableViewController alloc] init];
     
     [viewController setViewMode:kMessagingViewMode];
