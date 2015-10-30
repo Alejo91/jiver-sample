@@ -105,7 +105,7 @@
 
 - (void) dismissModal:(id)sender
 {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void) aboutJiver:(id)sender
@@ -550,7 +550,6 @@
         [self.messagingChannelListTableView setHidden:NO];
         messagingChannelListQuery = [Jiver queryMessagingChannelList];
         [messagingChannelListQuery executeWithResultBlock:^(NSMutableArray *queryResult) {
-            NSLog(@"%@", queryResult);
             [messagingChannels removeAllObjects];
             [messagingChannels addObjectsFromArray:queryResult];
             [self.messagingChannelListTableView reloadData];
@@ -562,7 +561,7 @@
         [Jiver connect];
     }
     else if (viewMode == kMessagingViewMode) {
-        [Jiver startMessagingWithUserId:self.targetUserId];
+        [self startMessagingWithUser:self.targetUserId];
     }
 }
 
@@ -598,8 +597,7 @@
     viewMode = kMessagingMemberForGroupChatViewMode;
     [self setNavigationButton];
     [self.channelMemberListTableView setHidden:NO];
-//    memberListQuery = [Jiver queryMemberListInChannel:@"jia_test.Lobby"];
-    memberListQuery = [Jiver queryMemberListInChannel:@"potato.ThugLifeHomis"];
+    memberListQuery = [Jiver queryMemberListInChannel:@"jia_test.Lobby"];
     [memberListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
         if ([memberListQuery getCurrentPage] == 1) {
             [membersInChannel removeAllObjects];
@@ -1026,6 +1024,14 @@
     tableViewBottomMargin.constant = 0;
     [self.view updateConstraints];
     [self.typingNowView setHidden:YES];
+}
+
+- (void) startMessagingWithUser:(NSString *)userId
+{
+    [self.channelMemberListTableView setHidden:YES];
+    [self.messagingChannelListTableView setHidden:YES];
+    [self.tableView setHidden:NO];
+    [Jiver startMessagingWithUserId:userId];
 }
 
 #pragma mark - UIScrollViewDelegate

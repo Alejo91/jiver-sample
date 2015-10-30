@@ -47,5 +47,6 @@
 - (void)setIndicatorHidden:(BOOL)hidden;
 - (void) initChannelTitle;
 - (void) updateChannelTitle;
+- (void) startMessagingWithUser:(NSString *)userId;
 
 @end
