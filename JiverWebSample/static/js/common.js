@@ -10,6 +10,24 @@ var loadMoreScroll = false;
 var currScrollHeight = 0;
 var FILE_ICON = ['ppt', 'xls', 'pdf', 'doc'];
 
+function notifyMe() {
+  if (window.Notification && Notification.permission === "granted") {
+    console.log("Notification is already granted.");
+  } else if (window.Notification && Notification.permission !== "denied") {
+    Notification.requestPermission(function (status) {
+      if (Notification.permission !== status) {
+        Notification.permission = status;
+      }
+
+      if (status === "granted") {
+        console.log("Notification is granted.");
+      } else {
+        console.log("Notification is denied.");
+      }
+    });
+  }
+}
+
 function isCurrentUser(guestId) {
   return (getGuestId()==guestId) ? true : false;
 };
@@ -145,6 +163,22 @@ function setChatMessage(obj) {
   scrollPositionBottom();
 }
 
+function notifyMessage(message) {
+  var iconUrl = location.protocol + '//' + location.host + '/static/img/icon-jiver-120px.png';
+  if (window.Notification && Notification.permission === "granted") {
+    var noti = new Notification("JIVER | " + currChannelUrl, {
+      icon: iconUrl,
+      body: message,
+      tag: currChannelUrl
+    });
+
+    noti.onclick = function(data){
+      window.focus();
+    }
+
+  }
+}
+
 function messageList(obj) {
   var msgList = '';
 
@@ -153,6 +187,11 @@ function messageList(obj) {
     msgList += userMessage(obj);
   } else {
     msgList += memberMessage(obj);
+
+    if (!document.hasFocus()) {
+      notifyMessage(obj['message']);
+    }
+
   }
   return msgList;
 }
