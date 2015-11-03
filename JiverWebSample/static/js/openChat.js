@@ -8,6 +8,8 @@ var channelListPage = 0;
 
 $(document).ready(function() {
 
+  notifyMe();
+
   $('#file_input_field').change(function() {
     if ($('#file_input_field').val().trim().length == 0) return;
 
