@@ -16,6 +16,7 @@
 @property (retain) NSString *url;
 @property (retain) NSString *name;
 @property (retain) NSString *coverUrl;
+@property long long createdAt;
 @property (retain) NSDictionary *jsonObj;
 
 - (id) initWithDic:(NSDictionary *) dic;

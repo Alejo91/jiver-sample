@@ -36,5 +36,6 @@
 - (void) updateLastMessage:(NSString *) messageJson;
 - (void) updateUnreadMessageCount:(int) count;
 - (NSString *) getName;
+- (long long) getCreatedAt;
 
 @end
