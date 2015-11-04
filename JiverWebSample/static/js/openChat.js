@@ -48,12 +48,32 @@ $(document).ready(function() {
     }
   });
 
+  // Message Input KeyUp
+  $('#msg_input').keydown(function (event) {
+    if (event.keyCode == 13 && event.shiftKey) {
+      //console.log("enter");
+    } else if (event.keyCode == 13 && !event.shiftKey) {
+      event.preventDefault();
+      if ($.trim(this.value) != '') {
+        event.preventDefault();
+        this.value = $.trim(this.value);
+        var chatMessage = $.trim(this.value);
+        jiver.msg(chatMessage);
+
+        scrollPositionBottom();
+      }
+      this.value = "";
+    }
+  });
   $('#send_msg').click(function() {
-    var msg = $('#msg_input').val();
-
     // this function is user send the message.
-    jiver.msg(msg);
+    if($.trim($('#msg_input').val()) != '') {
+      var value = $.trim($('#msg_input').val());
+      var chatMessage = $.trim(value);
+      jiver.msg(chatMessage);
 
+      scrollPositionBottom();
+    }
     $('#msg_input').val('');
   });
 
