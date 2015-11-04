@@ -158,7 +158,7 @@ function setWelcomeMessage(channelName) {
 function setChatMessage(obj) {
   var msgList = messageList(obj);
 
-  $('#chat_canvas').html($('#chat_canvas').html() + msgList);
+  $('#chat_canvas').append(msgList);
 
   scrollPositionBottom();
 }
@@ -239,14 +239,14 @@ function loadMoreChatMessage() {
     msgList += messageList(msg);
   });
 
-  $('#chat_canvas').html(msgList + $('#chat_canvas').html());
+  $('#chat_canvas').prepend(msgList);
   $("#chat_canvas")[0].scrollTop = $("#chat_canvas")[0].scrollHeight - scrollHeight;
 }
 
 function setSysMessage(obj) {
   var msgList = sysMessage(obj);
 
-  $('#chat_canvas').html($('#chat_canvas').html() + msgList);
+  $('#chat_canvas').append(msgList);
   scrollPositionBottom();
 }
 
@@ -257,7 +257,7 @@ function sysMessage(obj) {
 function setBroadcastMessage(obj) {
   var msgList = broadcastMessage(obj);
 
-  $('#chat_canvas').html($('#chat_canvas').html() + msgList);
+  $('#chat_canvas').append(msgList);
   scrollPositionBottom();
 }
 
@@ -268,7 +268,7 @@ function broadcastMessage(obj) {
 function setFileMessage(obj) {
   var msgList = fileMessageList(obj);
 
-  $('#chat_canvas').html($('#chat_canvas').html() + msgList);
+  $('#chat_canvas').append(msgList);
   scrollPositionBottom();
 }
 
@@ -318,7 +318,7 @@ function memberFileMessage(obj, icon) {
 function setImageMessage(obj) {
   var msgList = imageMessageList(obj);
 
-  $('#chat_canvas').html($('#chat_canvas').html() + msgList);
+  $('#chat_canvas').append(msgList);
   scrollPositionBottom();
 }
 
