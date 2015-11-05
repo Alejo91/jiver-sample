@@ -321,7 +321,8 @@
         member = [[model members] objectAtIndex:0];
     }
     
-    [self.nicknameLabel setText:[JiverUtils getMessagingChannelNames:[model members]]];
+    NSString *channelName = [NSString stringWithFormat:@"%@ - %lld", [JiverUtils getMessagingChannelNames:[model members]], [[model channel] channelId]];
+    [self.nicknameLabel setText:channelName];
     [self.lastMessageLabel setText:[[model lastMessage] message]];
     
     if (check) {

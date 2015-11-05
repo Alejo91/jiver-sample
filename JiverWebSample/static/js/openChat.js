@@ -3,9 +3,31 @@
  */
 
 var nickName = null;
+var guestId = null;
 var channelListPage = 0;
 
 $(document).ready(function() {
+
+  notifyMe();
+
+  $('#file_input_field').change(function() {
+    if ($('#file_input_field').val().trim().length == 0) return;
+
+    var file = $('#file_input_field')[0].files[0];
+    var fileUrl = jiver.uploadFile(file);
+    console.log(fileUrl);
+
+    var fileInfo = {
+      "url": fileUrl,
+      "name": file.name,
+      "type": file.type,
+      "size": file.size,
+      "custom": ''
+    };
+    jiver.fileMsg(fileInfo);
+
+    $('#file_input_field').val('');
+  });
 
   $('#btn_curr_member_list').click(function() {
     $('#member_canvas').html(getMemberList(currChannelUrl));
@@ -26,12 +48,32 @@ $(document).ready(function() {
     }
   });
 
+  // Message Input KeyUp
+  $('#msg_input').keydown(function (event) {
+    if (event.keyCode == 13 && event.shiftKey) {
+      //console.log("enter");
+    } else if (event.keyCode == 13 && !event.shiftKey) {
+      event.preventDefault();
+      if ($.trim(this.value) != '') {
+        event.preventDefault();
+        this.value = $.trim(this.value);
+        var chatMessage = $.trim(this.value);
+        jiver.msg(chatMessage);
+
+        scrollPositionBottom();
+      }
+      this.value = "";
+    }
+  });
   $('#send_msg').click(function() {
-    var msg = $('#msg_input').val();
-
     // this function is user send the message.
-    jiver.msg(msg);
+    if($.trim($('#msg_input').val()) != '') {
+      var value = $.trim($('#msg_input').val());
+      var chatMessage = $.trim(value);
+      jiver.msg(chatMessage);
 
+      scrollPositionBottom();
+    }
     $('#msg_input').val('');
   });
 
@@ -62,10 +104,12 @@ $(document).ready(function() {
 
 
 function init() {
-  nickName = getUrlVars()['nickname'];
-  console.log(nickName);
+  guestId = checkGuestId();
+  console.log('guestID : ', guestId);
+  nickName = decodeURI(decodeURIComponent(getUrlVars()['nickname']));
+  console.log('nickname : ', nickName);
 
-  startJiver(nickName);
+  startJiver(guestId, nickName);
   jiver.setDebugMessage(true);
 
   $('#btn_open_chat_list').click();

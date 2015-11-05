@@ -14,7 +14,12 @@
 
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    NSString *messagingUserName;
+    NSString *messagingUserId;
+    NSString *messagingTargetUserId;
+    BOOL startMessagingFromOpenChat;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -371,7 +376,40 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    startMessagingFromOpenChat = NO;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startMessagingWithUser:) name:@"open_messaging" object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    if (startMessagingFromOpenChat == YES) {
+        MessagingTableViewController *viewController = [[MessagingTableViewController alloc] init];
+        
+        [viewController setViewMode:kMessagingViewMode];
+        [viewController initChannelTitle];
+        [viewController setChannelUrl:@""];
+        [viewController setUserName:messagingUserName];
+        [viewController setUserId:messagingUserId];
+        [viewController setTargetUserId:messagingTargetUserId];
+        
+#if 0
+        [self.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
+        [self.navigationController presentViewController:navController animated:YES completion:nil];
+#else
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+        [self presentViewController:navigationController animated:YES completion: nil];
+#endif
+    }
+    
+    startMessagingFromOpenChat = NO;
+}
+
+- (void)startMessagingWithUser:(NSNotification *)obj {
+    messagingTargetUserId = (NSString *)[obj object];
+    startMessagingFromOpenChat = YES;
 }
 
 - (void)clickJiverChatStartButton:(id)sender
@@ -409,6 +447,9 @@
     NSString *USER_NAME = userName;
     NSString *CHANNEL_URL = @"jia_test.Lobby";
     
+    messagingUserName = USER_NAME;
+    messagingUserId = USER_ID;
+    
     if (chatMode == kChatModeChatting) {
         ChattingTableViewController *viewController = [[ChattingTableViewController alloc] init];
         
@@ -426,8 +467,7 @@
         [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
         [self.navigationController presentViewController:navController animated:YES completion:nil];
 #else
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [self presentViewController:navigationController animated:YES completion: nil];
+        [self.navigationController pushViewController:viewController animated:NO];
 #endif
     }
     else if (chatMode == kChatModeMessaging) {
@@ -447,8 +487,7 @@
         [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
         [self.navigationController presentViewController:navController animated:YES completion:nil];
 #else
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-        [self presentViewController:navigationController animated:YES completion: nil];
+        [self.navigationController pushViewController:viewController animated:NO];
 #endif
     }
 }

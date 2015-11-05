@@ -21,6 +21,8 @@
 #import "MessagingIndicatorView.h"
 #import "TypingNowView.h"
 #import "MessagingChannelTableViewCell.h"
+#import "MessagingMyStructuredMessageTableViewCell.h"
+#import "MessagingStructuredMessageTableViewCell.h"
 
 @interface MessagingTableViewController : UIViewController
 
@@ -45,5 +47,6 @@
 - (void)setIndicatorHidden:(BOOL)hidden;
 - (void) initChannelTitle;
 - (void) updateChannelTitle;
+- (void) startMessagingWithUser:(NSString *)userId;
 
 @end

@@ -15,7 +15,7 @@
   <nav class="navbar navbar-default navbar-static-top jiver-top-nav">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand jiver-nav-logo" href="http://jiver.io/" target="_blank"><img src="static/img/jiver-logo.png" class="jiver-logo"></a>
+        <a class="navbar-brand jiver-nav-logo" href="http://jiver.io/" target="_blank"><img src="/static/img/jiver-logo.png" class="jiver-logo"></a>
       </div>
     </div>
   </nav>
@@ -58,6 +58,13 @@
         <!-- input chat message -->
         <div class="col-md-12">
           <div class="input-group">
+            <span class="input-group-btn">
+              <label class="btn btn-default" for="file_input_field">
+                <span class="glyphicon glyphicon-open" aria-hidden="true"></span> File
+              </label>
+            </span>
+            <input type="file" name="file" id="file_input_field" style="display: none;">
+
             <input type="text" class="form-control" placeholder="What's on your mind?" id="msg_input">
             <span class="input-group-btn">
               <button class="btn btn-default" type="button" id="send_msg"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
@@ -156,9 +163,9 @@
   <script src="/static/bootstrap/bootstrap.min.js"></script>
 
   <!-- websocket -->
-  <script src="static/js/jquery.gracefulWebSocket.js"></script>
+  <script src="/static/js/jquery.gracefulWebSocket.js"></script>
   <!-- for JIVER-SDK -->
-  <script src="/static/libs/jiver-sdk-1.0.0.min.js"></script>
+  <script src="/static/libs/jiver-sdk-1.2.1.min.js"></script>
 
   <!-- for sample js -->
   <script src="/static/js/common.js"></script>

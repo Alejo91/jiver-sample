@@ -3,9 +3,31 @@
  */
 
 var nickName = null;
+var guestId = null;
 var channelListPage = 0;
 
 $(document).ready(function() {
+
+  notifyMe();
+
+  $('#file_input_field').change(function() {
+    if ($('#file_input_field').val().trim().length == 0) return;
+
+    var file = $('#file_input_field')[0].files[0];
+    var fileUrl = jiver.uploadFile(file);
+    console.log(fileUrl);
+
+    var fileInfo = {
+      "url": fileUrl,
+      "name": file.name,
+      "type": file.type,
+      "size": file.size,
+      "custom": ''
+    };
+    jiver.fileMsg(fileInfo);
+
+    $('#file_input_field').val('');
+  });
 
   $('#btn_msg_chat_list').click(function () {
     var page = 1;
@@ -36,12 +58,32 @@ $(document).ready(function() {
     $('#member_modal').modal('show');
   });
 
+  // Message Input KeyUp
+  $('#msg_input').keydown(function (event) {
+    if (event.keyCode == 13 && event.shiftKey) {
+      //console.log("enter");
+    } else if (event.keyCode == 13 && !event.shiftKey) {
+      event.preventDefault();
+      if ($.trim(this.value) != '') {
+        event.preventDefault();
+        this.value = $.trim(this.value);
+        var chatMessage = $.trim(this.value);
+        jiver.msg(chatMessage);
+
+        scrollPositionBottom();
+      }
+      this.value = "";
+    }
+  });
   $('#send_msg').click(function() {
-    var msg = $('#msg_input').val();
-
     // this function is user send the message.
-    jiver.msg(msg);
+    if($.trim($('#msg_input').val()) != '') {
+      var value = $.trim($('#msg_input').val());
+      var chatMessage = $.trim(value);
+      jiver.msg(chatMessage);
 
+      scrollPositionBottom();
+    }
     $('#msg_input').val('');
   });
 
@@ -59,10 +101,12 @@ $(document).ready(function() {
 
 
 function init() {
-  nickName = getUrlVars()['nickname'];
+  guestId = checkGuestId();
+  console.log('guestID : ', guestId);
+  nickName = decodeURI(decodeURIComponent(getUrlVars()['nickname']));
   console.log(nickName);
 
-  startJiver(nickName);
+  startJiver(guestId, nickName);
   jiver.setDebugMessage(false);
 
   if (getUrlVars()['type'] == 'start') {
@@ -137,8 +181,13 @@ function messagingPanel(index, obj) {
 
   returnStr += '<div class="panel panel-default" style="margin-bottom: 10px;" id="messaging_panel_'+index+'" >' +
     '<div class="panel-body">' +
-    '<div class="col-md-8">' +
+    '<div class="col-md-6">' +
     channelName +
+    '</div>' +
+    '<div class="col-md-2">' +
+    '<span class="badge">' +
+    obj['unread_message_count'] +
+    '</span>' +
     '</div>' +
     '<div class="col-md-2">' +
     '<button class="btn btn-danger" onclick="endMessaging(\'' + index + '\', \''+obj['channel']['channel_url']+'\')">' +
@@ -201,7 +250,7 @@ function createMemberPanel(obj) {
   // member list
   var memberListHtml = '';
   $.each(obj['members'], function(index, member) {
-    if ( !jiver.isCurrentUser(member['guest_id']) ) {
+    if ( !isCurrentUser(member['guest_id']) ) {
       memberListHtml += memberPanel(index, member);
     }
   });

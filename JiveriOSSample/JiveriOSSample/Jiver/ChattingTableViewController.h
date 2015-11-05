@@ -17,6 +17,7 @@
 #import "BroadcastMessageTableViewCell.h"
 #import "MessageTableViewCell.h"
 #import "SystemMessageTableViewCell.h"
+#import "StructuredMessageTableViewCell.h"
 
 @class IndicatorView;
 @class ChannelListTableView;

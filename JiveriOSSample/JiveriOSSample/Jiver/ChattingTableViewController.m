@@ -7,15 +7,19 @@
 //
 
 #import "ChattingTableViewController.h"
+#import "MessagingTableViewController.h"
 
 #define kMessageCellIdentifier @"MessageReuseIdentifier"
 #define kFileLinkCellIdentifier @"FileLinkReuseIdentifier"
 #define kSystemMessageCellIdentifier @"SystemMessageReuseIdentifier"
 #define kFileMessageCellIdentifier @"FileMessageReuseIdentifier"
 #define kBroadcastMessageCellIdentifier @"BroadcastMessageReuseIdentifier"
+#define kStructuredMessageCellIdentifier @"StructuredMessageReuseIdentifier"
 
 #define kActionSheetTagUrl 0
 #define kActionSheetTagImage 1
+#define kActionSheetTagStructuredMessage 2
+#define kActionSheetTagMessage 3
 
 @interface ChattingTableViewController ()<UITableViewDataSource, UITableViewDelegate, ChatMessageInputViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate, FileLinkTableViewCellDelegate, UIActionSheetDelegate>
 @end
@@ -29,6 +33,7 @@
     SystemMessageTableViewCell *systemMessageSizingTableViewCell;
     FileMessageTableViewCell *fileMessageSizingTableViewCell;
     BroadcastMessageTableViewCell *broadcastMessageSizingTableViewCell;
+    StructuredMessageTableViewCell *structuredMessageSizingTableViewCell;
     
     NSMutableArray *imageCache;
     NSMutableDictionary *cellHeight;
@@ -44,9 +49,13 @@
     
     long long mMaxMessageTs;
     long long mMinMessageTs;
+    
+    JiverSender *messageSender;
+    
+    BOOL viewLoaded;
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskLandscape;
 }
 
@@ -55,6 +64,7 @@
     self = [super init];
     if (self != nil) {
         viewMode = kChattingViewMode;
+        viewLoaded = NO;
         [self clearMessageTss];
     }
     return self;
@@ -68,9 +78,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
-//    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-    
     [super viewWillAppear:animated];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[self navigationController] setNavigationBarHidden:NO animated:NO];
@@ -81,11 +88,19 @@
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"_btn_close"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissModal:)];
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+    if (viewLoaded) {
+        if (viewMode == kChattingViewMode) {
+            [self startChatting];
+        }
+        else if (viewMode == kChannelListViewMode) {
+            [self clickChannelListButton];
+        }
+    }
 }
 
 - (void) dismissModal:(id)sender
 {
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void) aboutJiver:(id)sender
@@ -110,6 +125,7 @@
 }
 
 - (void)viewDidLoad {
+    viewLoaded = YES;
     updateMessageTs = ^(JiverMessageModel *model) {
         if (![model hasMessageId]) {
             return;
@@ -147,17 +163,38 @@
     [self initViews];
     [self.channelListTableView viewDidLoad];
     
-    if (viewMode == kChattingViewMode) {
-        [self startChatting];
-    }
-    else if (viewMode == kChannelListViewMode) {
-        [self clickChannelListButton];
-    }
+//    if (viewMode == kChattingViewMode) {
+//        [self startChatting];
+//    }
+//    else if (viewMode == kChannelListViewMode) {
+//        [self clickChannelListButton];
+//    }
 }
 
 - (void)setIndicatorHidden:(BOOL)hidden
 {
     [self.indicatorView setHidden:hidden];
+}
+
+- (void) startMessagingWithUser:(NSString *)targetUserId
+{
+    MessagingTableViewController *viewController = [[MessagingTableViewController alloc] init];
+    
+    [viewController setViewMode:kMessagingViewMode];
+    [viewController initChannelTitle];
+    [viewController setChannelUrl:@""];
+    [viewController setUserName:self.userName];
+    [viewController setUserId:self.userId];
+    [viewController setTargetUserId:targetUserId];
+    
+#if 0
+    [self.navigationController setModalPresentationStyle:UIModalPresentationCurrentContext];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [navController setModalPresentationStyle:UIModalPresentationCurrentContext];
+    [self.navigationController presentViewController:navController animated:YES completion:nil];
+#else
+    [self.navigationController pushViewController:viewController animated:NO];
+#endif
 }
 
 - (void) startChatting
@@ -210,6 +247,11 @@
         [messageArray addJiverMessage:fileLink updateMessageTsBlock:updateMessageTs];
         [self scrollToBottomWithReloading:YES force:NO animated:NO];
         [self setIndicatorHidden:YES];
+    // TODO
+//    } structuredMessageReceivedBlock:^(JiverStructuredMessage *message) {
+//        [self updateChannelTitle];
+//        [messageArray addJiverMessage:message updateMessageTsBlock:updateMessageTs];
+//        [self setIndicatorHidden:YES];
     } messagingStartedBlock:^(JiverMessagingChannel *channel) {
         
     } messagingUpdatedBlock:^(JiverMessagingChannel *channel) {
@@ -251,7 +293,9 @@
                 }
             }
             [self.tableView reloadData];
-            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([messageArray count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            if ([messageArray count] > 0) {
+                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:([messageArray count] - 1) inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+            }
             [Jiver connectWithMessageTs:mMaxMessageTs];
         } endBlock:^(NSError *error) {
             
@@ -310,6 +354,7 @@
     [self.tableView registerClass:[FileLinkTableViewCell class] forCellReuseIdentifier:kFileLinkCellIdentifier];
     [self.tableView registerClass:[FileMessageTableViewCell class] forCellReuseIdentifier:kFileMessageCellIdentifier];
     [self.tableView registerClass:[BroadcastMessageTableViewCell class] forCellReuseIdentifier:kBroadcastMessageCellIdentifier];
+    [self.tableView registerClass:[StructuredMessageTableViewCell class] forCellReuseIdentifier:kStructuredMessageCellIdentifier];
     [self.view addSubview:self.tableView];
     
     messageSizingTableViewCell = [[MessageTableViewCell alloc] initWithFrame:self.view.frame];
@@ -331,6 +376,11 @@
     [broadcastMessageSizingTableViewCell setTranslatesAutoresizingMaskIntoConstraints:NO];
     [broadcastMessageSizingTableViewCell setHidden:YES];
     [self.view addSubview:broadcastMessageSizingTableViewCell];
+    
+    structuredMessageSizingTableViewCell = [[StructuredMessageTableViewCell alloc] initWithFrame:self.view.frame];
+    [structuredMessageSizingTableViewCell setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [structuredMessageSizingTableViewCell setHidden:YES];
+    [self.view addSubview:structuredMessageSizingTableViewCell];
     
     self.messageInputView = [[ChatMessageInputView alloc] init];
     [self.messageInputView setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -483,6 +533,9 @@
     else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverBroadcastMessage class]]) {
         cell = [tableView dequeueReusableCellWithIdentifier:kBroadcastMessageCellIdentifier];
     }
+    else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+        cell = [tableView dequeueReusableCellWithIdentifier:kStructuredMessageCellIdentifier];
+    }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:kSystemMessageCellIdentifier];
     }
@@ -504,6 +557,9 @@
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverBroadcastMessage class]]){
             cell = [[BroadcastMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBroadcastMessageCellIdentifier];
         }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]){
+            cell = [[StructuredMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStructuredMessageCellIdentifier];
+        }
         else {
             cell = [[SystemMessageTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kSystemMessageCellIdentifier];
         }
@@ -524,6 +580,9 @@
         }
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverBroadcastMessage class]]){
             [(BroadcastMessageTableViewCell *)cell setModel:[messageArray objectAtIndex:indexPath.row]];
+        }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]){
+            [(StructuredMessageTableViewCell *)cell setModel:[messageArray objectAtIndex:indexPath.row]];
         }
         else {
             [(SystemMessageTableViewCell *)cell setModel:[messageArray objectAtIndex:indexPath.row]];
@@ -551,6 +610,9 @@
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverFileLink class]]) {
             ts = [(JiverFileLink *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
         }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+            ts = [(JiverStructuredMessage *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
+        }
         
         calculatedHeight = [[cellHeight objectForKey:[NSNumber numberWithLongLong:ts]] floatValue];
     }
@@ -565,6 +627,11 @@
             [broadcastMessageSizingTableViewCell setModel:(JiverBroadcastMessage *)[messageArray objectAtIndex:indexPath.row]];
             calculatedHeight = [broadcastMessageSizingTableViewCell getHeightOfViewCell:self.view.frame.size.width];
             ts = [(JiverBroadcastMessage *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
+        }
+        else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+            [structuredMessageSizingTableViewCell setModel:(JiverStructuredMessage *)[messageArray objectAtIndex:indexPath.row]];
+            calculatedHeight = [structuredMessageSizingTableViewCell getHeightOfViewCell:self.view.frame.size.width];
+            ts = [(JiverStructuredMessage *)[messageArray objectAtIndex:indexPath.row] getMessageTimestamp];
         }
         else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverFileLink class]]) {
             JiverFileLink *fileLink = [messageArray objectAtIndex:indexPath.row];
@@ -596,50 +663,101 @@
         NSString *msgString = [message message];
         NSString *url = [JiverUtils getUrlFromString:msgString];
         if ([url length] > 0) {
-            [self clickURL:[NSURL URLWithString:url]];
+            [self clickURL:url andUser:[message sender]];
+        }
+        else {
+            [self clickMessage:[message sender]];
         }
     }
     else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverFileLink class]]) {
         JiverFileLink *fileLink = [messageArray objectAtIndex:indexPath.row];
         if ([[[fileLink fileInfo] type] hasPrefix:@"image"]) {
-            [self clickImage:[NSURL URLWithString:[[fileLink fileInfo] url]]];
+            [self clickImage:[[fileLink fileInfo] url] andUser:[fileLink sender]];
+        }
+    }
+    else if ([[messageArray objectAtIndex:indexPath.row] isKindOfClass:[JiverStructuredMessage class]]) {
+        JiverStructuredMessage *message = [messageArray objectAtIndex:indexPath.row];
+        if ([[message structuredMessageUrl] length] > 0) {
+            [self clickStructuredMessage:[message structuredMessageUrl] andUser:[message sender]];
         }
     }
 }
 
-- (void) clickURL:(NSURL *)url
+- (void) clickMessage:(JiverSender *)sender
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[url absoluteString]
+    NSString *openMessaging = [NSString stringWithFormat:@"Open Messaging with %@", [sender name]];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:@"Open Link in Safari", nil];
+                                                    otherButtonTitles:openMessaging, nil];
+    
+    messageSender = sender;
+    [actionSheet setTag:kActionSheetTagMessage];
+    [actionSheet showInView:self.view];
+}
+
+- (void) clickURL:(NSString *)url andUser:(JiverSender *)sender
+{
+    NSString *openMessaging = [NSString stringWithFormat:@"Open Messaging with %@", [sender name]];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Open Link in Safari", openMessaging, nil];
+
+    messageSender = sender;
     [actionSheet setTag:kActionSheetTagUrl];
     [actionSheet showInView:self.view];
 }
 
-- (void) clickImage:(NSURL *)url
+- (void) clickImage:(NSString *)url andUser:(JiverSender *)sender
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[url absoluteString]
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
                                                              delegate:self
                                                     cancelButtonTitle:@"Cancel"
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:@"See Image in Safari", nil];
+    messageSender = sender;
     [actionSheet setTag:kActionSheetTagImage];
+    [actionSheet showInView:self.view];
+}
+
+- (void) clickStructuredMessage:(NSString *)url andUser:(JiverSender *)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:url
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:@"Open", nil];
+    messageSender = sender;
+    [actionSheet setTag:kActionSheetTagStructuredMessage];
     [actionSheet showInView:self.view];
 }
 
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(actionSheet.tag == kActionSheetTagUrl || actionSheet.tag == kActionSheetTagImage)
-    {
-        if (buttonIndex == actionSheet.cancelButtonIndex) {
-            return;
-        }
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:actionSheet.title]];
+    if (buttonIndex == actionSheet.cancelButtonIndex) {
+        return;
     }
+    
+    if (actionSheet.tag == kActionSheetTagMessage) {
+        if (buttonIndex == 0) {
+            [self startMessagingWithUser:[messageSender guestId]];
+        }
+    }
+    else if(actionSheet.tag == kActionSheetTagUrl || actionSheet.tag == kActionSheetTagImage || actionSheet.tag == kActionSheetTagStructuredMessage) {
+        if (buttonIndex == 0) {
+            NSString *encodedUrl = [actionSheet.title stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:encodedUrl]];
+        }
+        else if (buttonIndex == 1) {
+            NSLog(@"User ID: %@", [messageSender guestId]);
+            [self startMessagingWithUser:[messageSender guestId]];
+        }
+    }
+    messageSender = nil;
 }
 
 #pragma mark - ChatMessageInputViewDelegate
