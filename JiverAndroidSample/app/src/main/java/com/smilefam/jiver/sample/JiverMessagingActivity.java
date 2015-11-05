@@ -52,11 +52,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.smilefam.jia.Jiver;
-import com.smilefam.jia.JiverEventHandler;
-import com.smilefam.jia.JiverFileUploadEventHandler;
-import com.smilefam.jia.JiverNotificationHandler;
-import com.smilefam.jia.MessageListQuery;
+import com.smilefam.jia.*;
 import com.smilefam.jia.model.BroadcastMessage;
 import com.smilefam.jia.model.Channel;
 import com.smilefam.jia.model.FileInfo;
@@ -285,7 +281,7 @@ public class JiverMessagingActivity extends FragmentActivity {
         Jiver.registerNotificationHandler(new JiverNotificationHandler() {
             @Override
             public void onMessagingChannelUpdated(MessagingChannel messagingChannel) {
-                if (mMessagingChannel != null && mMessagingChannel.getId() == messagingChannel.getId()) {
+                if(mMessagingChannel != null && mMessagingChannel.getId() == messagingChannel.getId()) {
                     updateMessagingChannel(messagingChannel);
                 }
             }
@@ -318,7 +314,7 @@ public class JiverMessagingActivity extends FragmentActivity {
 
             @Override
             public void onSystemMessageReceived(SystemMessage systemMessage) {
-                switch (systemMessage.getCategory()) {
+                switch(systemMessage.getCategory()) {
                     case SystemMessage.CATEGORY_TOO_MANY_MESSAGES:
                         systemMessage.setMessage("Too many messages. Please try later.");
                         break;
@@ -366,7 +362,7 @@ public class JiverMessagingActivity extends FragmentActivity {
 
             @Override
             public void onMessageDelivery(boolean sent, String message, String data, String tempId) {
-                if (!sent) {
+                if(!sent) {
                     mJiverMessagingFragment.mEtxtMessage.setText(message);
                 }
             }
@@ -379,7 +375,7 @@ public class JiverMessagingActivity extends FragmentActivity {
                 Jiver.queryMessageList(messagingChannel.getUrl()).load(Long.MAX_VALUE, 30, 10, new MessageListQuery.MessageListQueryResult() {
                     @Override
                     public void onResult(List<MessageModel> messageModels) {
-                        for (MessageModel model : messageModels) {
+                        for(MessageModel model : messageModels) {
                             mJiverMessagingAdapter.addMessageModel(model);
                         }
                         mJiverMessagingAdapter.notifyDataSetChanged();
@@ -403,20 +399,16 @@ public class JiverMessagingActivity extends FragmentActivity {
             }
 
             @Override
-            public void onMessagingEnded(MessagingChannel messagingChannel) {
-            }
+            public void onMessagingEnded(MessagingChannel messagingChannel) {  }
 
             @Override
-            public void onAllMessagingEnded() {
-            }
+            public void onAllMessagingEnded() {  }
 
             @Override
-            public void onMessagingHidden(MessagingChannel messagingChannel) {
-            }
+            public void onMessagingHidden(MessagingChannel messagingChannel) {  }
 
             @Override
-            public void onAllMessagingHidden() {
-            }
+            public void onAllMessagingHidden() {  }
 
         });
 
