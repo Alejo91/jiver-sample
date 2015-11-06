@@ -211,19 +211,20 @@ function nameInjectionCheck(name) {
 }
 
 function convertLinkMessage(msg) {
-  var returnString = '';
-
   msg = msg.replace(/</g, '&lt;');
   msg = msg.replace(/>/g, '&gt;');
   
-  var urlexp = new RegExp('(http|ftp|https)://[a-z0-9\-_]+(\.[a-z0-9\-_]+)+([a-z0-9\-\.,@\?^=%&;:/~\+#]*[a-z0-9\-@\?^=%&;/~\+#])?', 'i');
-  if (urlexp.test(msg)) {
-    returnString += '<a href="' + msg + '" target="_blank">' + msg + '</a>';
-  } else {
-    returnString += msg;
+  var urlexp = new RegExp('((http[s]?://))(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+  var getExp = urlexp.exec(msg);
+  var testMsg = msg;
+  while(getExp) {
+    link = '<a href="' + getExp[0] + '" target="_blank">' + getExp[0] + '</a>';
+    msg = msg.replace(getExp[0], link);
+    testMsg = testMsg.replace(getExp[0], '');
+    getExp = urlexp.exec(testMsg);
   }
 
-  return returnString;
+  return msg;
 }
 
 function loadMoreChatMessage() {
