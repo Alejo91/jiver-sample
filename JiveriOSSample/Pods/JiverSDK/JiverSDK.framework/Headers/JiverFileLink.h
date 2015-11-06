@@ -10,6 +10,7 @@
 #import "JiverFileInfo.h"
 #import "JiverSender.h"
 #import "JiverMessageModel.h"
+#import "JiverBlockedUser.h"
 
 @interface JiverFileLink : JiverMessageModel
 
@@ -18,6 +19,7 @@
 @property BOOL isOpMessage;
 @property BOOL isGuestMessage;
 @property (retain) NSDictionary *jsonObj;
+@property BOOL isBlocked;
 
 - (id) initWithDic:(NSDictionary *)dic inPresent:(BOOL)present;
 - (NSString *)getSenderName;

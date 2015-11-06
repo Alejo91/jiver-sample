@@ -25,6 +25,7 @@
 #import "JiverMessagingUnreadCountQuery.h"
 #import "JiverMention.h"
 #import "JiverStructuredMessage.h"
+#import "JiverBlockedUser.h"
 
 #define kJiverInitWithIDFA 0
 #define kJiverInitWithIDFV 1
@@ -62,6 +63,8 @@ typedef enum {
 + (NSString *) API_HOST;
 
 + (Jiver *) sharedInstance;
++ (JiverBlockedUser *) jiverBlockedUser;
++ (void) setJiverBlockedUser:(JiverBlockedUser *)newJiverBlockedUser;
 
 @property (retain) NSString *appId;
 @property BOOL connected;

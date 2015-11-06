@@ -60,9 +60,10 @@
     [self.view addSubview:self.jiverLogoImageView];
     
     // JIVER Label
+    NSLog(@"Version: %@", [Jiver VERSION]);
     self.jiverLabel = [[UILabel alloc] init];
     [self.jiverLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [self.jiverLabel setText:@"JIVER"];
+    [self.jiverLabel setText:[NSString stringWithFormat:@"JIVER v%@", [Jiver VERSION]]];
     [self.jiverLabel setTextColor:[UIColor whiteColor]];
     [self.jiverLabel setFont:[UIFont boldSystemFontOfSize:28.0]];
     [self.jiverLabel setFont:[UIFont fontWithName:@"AmericanTypewriter-Bold" size:28]];

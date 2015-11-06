@@ -255,8 +255,14 @@
 {
     NSMutableDictionary *messageAttribute = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:kMessageFontSize], NSFontAttributeName, UIColorFromRGB(0x3d3d3d), NSForegroundColorAttributeName,nil];
     NSMutableDictionary *urlAttribute = [NSMutableDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:kMessageFontSize], NSFontAttributeName, UIColorFromRGB(0x2981e1), NSForegroundColorAttributeName,nil];
-    
-    NSString *message = [[NSString stringWithFormat:@"%@", [self.message message]] stringByReplacingOccurrencesOfString:@" " withString:@"\u00A0"];
+    NSString *blockMark = @"";
+//    if ([self.message isBlocked]) {
+//        blockMark = @"Blocked";
+//    }
+//    else {
+//        blockMark = @"Unblocked";
+//    }
+    NSString *message = [[NSString stringWithFormat:@"%@%@", [self.message message], blockMark] stringByReplacingOccurrencesOfString:@" " withString:@"\u00A0"];
     NSString *url = [JiverUtils getUrlFromString:[self.message message]];
     NSRange urlRange;
     if ([url length] > 0) {

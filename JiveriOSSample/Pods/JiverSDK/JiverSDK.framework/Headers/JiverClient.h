@@ -63,7 +63,8 @@
 - (void) markAsReadForChannelUrl:(NSString *)channelUrl;
 - (void) markAllAsRead;
 - (void) getChannelListInPage:(int)page withQuery:(NSString *)query withLimit:(int)limit resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
-- (void) getMessagingListWithResultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
+//- (void) getMessagingListWithResultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
+- (void) getMessagingListV2WithToken:(NSString *)token andPage:(int)page withLimit:(int)limit andShowEmpty:(BOOL)showEmpty resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) messageListInChannelUrl:(NSString *)channelUrl withMessageTs:(long long)messageTs prevLimit:(int)prevLimit andNextLimit:(int)nextLimit include:(BOOL)include resultBlock:(void (^)(NSDictionary *response, NSError *error))onResult;
 - (void) leaveChannel:(NSString *)channelUrl;
 - (void) uploadFile:(NSData *)file type:(NSString *)type size:(unsigned long)size customField:(NSString *)customField uploadBlock:(void (^)(JiverFileInfo *fileInfo, NSError *error))onUpload;

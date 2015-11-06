@@ -15,7 +15,9 @@
 
 - (id) initWithClient:(JiverClient *)jiverClient;
 - (BOOL) isLoading;
+- (void) setLimit:(int) lmt;
 - (void) cancel;
-- (void) executeWithResultBlock:(void (^)(NSMutableArray *queryResult))onResult endBlock:(void (^)(NSInteger code))onError;
+- (BOOL) hasNext;
+- (void) nextWithResultBlock:(void (^)(NSMutableArray *queryResult))onResult endBlock:(void (^)(NSInteger code))onError;
 
 @end

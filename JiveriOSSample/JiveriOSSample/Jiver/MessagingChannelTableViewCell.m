@@ -321,7 +321,7 @@
         member = [[model members] objectAtIndex:0];
     }
     
-    NSString *channelName = [NSString stringWithFormat:@"%@ - %lld", [JiverUtils getMessagingChannelNames:[model members]], [[model channel] channelId]];
+    NSString *channelName = [NSString stringWithFormat:@"%@", [JiverUtils getMessagingChannelNames:[model members]]];
     [self.nicknameLabel setText:channelName];
     [self.lastMessageLabel setText:[[model lastMessage] message]];
     
@@ -382,7 +382,6 @@
             [JiverUtils imageDownload:[NSURL URLWithString:imageUrl] endBlock:^(NSData *response, NSError *error) {
                 UIImage *image = [[UIImage alloc] initWithData:response scale:1];
                 UIImage *newImage = [JiverUtils imageWithImage:image scaledToSize:40];
-                NSLog(@"Downloaded image");
                 
                 [[ImageCache sharedInstance] setImage:newImage withKey:[member imageUrl]];
                 @try {

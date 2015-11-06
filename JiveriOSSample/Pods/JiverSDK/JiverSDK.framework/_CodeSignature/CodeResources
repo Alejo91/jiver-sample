@@ -6,11 +6,15 @@
 	<dict>
 		<key>Headers/Jiver.h</key>
 		<data>
-		8vlWVQyP8kEpfiBRA9JtW5pivh0=
+		Lptj033QAsWDeFZC1hlBB89+AYk=
 		</data>
 		<key>Headers/JiverAPIClient.h</key>
 		<data>
-		LfGaQlGYcSOUHggQNcrqvzZW1LA=
+		e2zwNose5qVKxxPZElgTZhXBPRU=
+		</data>
+		<key>Headers/JiverBlockedUser.h</key>
+		<data>
+		M1tRZvzbY7mE7lAFLHAKbXl7bgM=
 		</data>
 		<key>Headers/JiverBroadcastMessage.h</key>
 		<data>
@@ -26,7 +30,7 @@
 		</data>
 		<key>Headers/JiverClient.h</key>
 		<data>
-		7713e5C6xb3RxwpcgNYDsR2TwEI=
+		Z2LSSmySzw4E3r7ApVTptil4spA=
 		</data>
 		<key>Headers/JiverCommand.h</key>
 		<data>
@@ -42,7 +46,7 @@
 		</data>
 		<key>Headers/JiverFileLink.h</key>
 		<data>
-		mhrmir3l9chrCS8lnuCKCtaAStw=
+		SlnZwrhmld8Rg74Exhv4ACVxvGY=
 		</data>
 		<key>Headers/JiverMember.h</key>
 		<data>
@@ -62,7 +66,7 @@
 		</data>
 		<key>Headers/JiverMessage.h</key>
 		<data>
-		iSe9SxmJGuMj91H9fXDYhKXz52I=
+		Erg1OHK1yixB+mJRU8TsWlZKiOE=
 		</data>
 		<key>Headers/JiverMessageListQuery.h</key>
 		<data>
@@ -78,7 +82,7 @@
 		</data>
 		<key>Headers/JiverMessagingChannelListQuery.h</key>
 		<data>
-		qwk5fRRjwJHHuHBEG38G1mA0rgc=
+		PfJ8JpSUX5w1FMlzuWCWrwbfsMM=
 		</data>
 		<key>Headers/JiverMessagingChannelUpdate.h</key>
 		<data>
@@ -95,6 +99,10 @@
 		<key>Headers/JiverSDK.h</key>
 		<data>
 		aMvytRAegElUXt8o5jWr/qeR8fw=
+		</data>
+		<key>Headers/JiverSDKUtils.h</key>
+		<data>
+		qRuT0hl/0Oc4AwUrPEPj2Rf7U+M=
 		</data>
 		<key>Headers/JiverSender.h</key>
 		<data>
@@ -126,7 +134,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+PCYvB1oi2TEmZpg15Jry1dFr1I=
+		no6ABCqNJnf4JT8jV4oVMkvQu4M=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -137,11 +145,15 @@
 	<dict>
 		<key>Headers/Jiver.h</key>
 		<data>
-		8vlWVQyP8kEpfiBRA9JtW5pivh0=
+		Lptj033QAsWDeFZC1hlBB89+AYk=
 		</data>
 		<key>Headers/JiverAPIClient.h</key>
 		<data>
-		LfGaQlGYcSOUHggQNcrqvzZW1LA=
+		e2zwNose5qVKxxPZElgTZhXBPRU=
+		</data>
+		<key>Headers/JiverBlockedUser.h</key>
+		<data>
+		M1tRZvzbY7mE7lAFLHAKbXl7bgM=
 		</data>
 		<key>Headers/JiverBroadcastMessage.h</key>
 		<data>
@@ -157,7 +169,7 @@
 		</data>
 		<key>Headers/JiverClient.h</key>
 		<data>
-		7713e5C6xb3RxwpcgNYDsR2TwEI=
+		Z2LSSmySzw4E3r7ApVTptil4spA=
 		</data>
 		<key>Headers/JiverCommand.h</key>
 		<data>
@@ -173,7 +185,7 @@
 		</data>
 		<key>Headers/JiverFileLink.h</key>
 		<data>
-		mhrmir3l9chrCS8lnuCKCtaAStw=
+		SlnZwrhmld8Rg74Exhv4ACVxvGY=
 		</data>
 		<key>Headers/JiverMember.h</key>
 		<data>
@@ -193,7 +205,7 @@
 		</data>
 		<key>Headers/JiverMessage.h</key>
 		<data>
-		iSe9SxmJGuMj91H9fXDYhKXz52I=
+		Erg1OHK1yixB+mJRU8TsWlZKiOE=
 		</data>
 		<key>Headers/JiverMessageListQuery.h</key>
 		<data>
@@ -209,7 +221,7 @@
 		</data>
 		<key>Headers/JiverMessagingChannelListQuery.h</key>
 		<data>
-		qwk5fRRjwJHHuHBEG38G1mA0rgc=
+		PfJ8JpSUX5w1FMlzuWCWrwbfsMM=
 		</data>
 		<key>Headers/JiverMessagingChannelUpdate.h</key>
 		<data>
@@ -226,6 +238,10 @@
 		<key>Headers/JiverSDK.h</key>
 		<data>
 		aMvytRAegElUXt8o5jWr/qeR8fw=
+		</data>
+		<key>Headers/JiverSDKUtils.h</key>
+		<data>
+		qRuT0hl/0Oc4AwUrPEPj2Rf7U+M=
 		</data>
 		<key>Headers/JiverSender.h</key>
 		<data>

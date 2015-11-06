@@ -20,6 +20,7 @@
 @property (retain) NSString *data;
 @property (retain) NSDictionary *jsonObj;
 @property (retain) NSString *tempId;
+@property BOOL isBlocked;
 
 - (id) initWithDic:(NSDictionary *)dic;
 - (id) initWithDic:(NSDictionary *)dic inPresent:(BOOL)present;

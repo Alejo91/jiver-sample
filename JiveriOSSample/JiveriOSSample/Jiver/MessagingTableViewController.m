@@ -51,9 +51,11 @@
     NSMutableDictionary *cellHeight;
     
     BOOL scrolling;
+    BOOL messagingChannelScrolling;
     BOOL pastMessageLoading;
     
     BOOL endDragging;
+    BOOL messagingChannelEndDragging;
     
     int viewMode;
     JiverMemberListQuery *memberListQuery;
@@ -361,8 +363,10 @@
 - (void) startChatting
 {
     scrolling = NO;
+    messagingChannelScrolling = NO;
     pastMessageLoading = YES;
     endDragging = NO;
+    messagingChannelEndDragging = NO;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         pastMessageLoading = NO;
     });
@@ -457,7 +461,24 @@
         [self updateMessagingChannel:channel];
         [self.messageInputView setInputEnable:YES];
         
-        [[Jiver queryMessageListInChannel:[channel getUrl]] loadWithMessageTs:mMaxMessageTs prevLimit:30 andNextLimit:10 resultBlock:^(NSMutableArray *queryResult) {
+//        [[Jiver queryMessageListInChannel:[channel getUrl]] loadWithMessageTs:LLONG_MAX prevLimit:30 andNextLimit:10 resultBlock:^(NSMutableArray *queryResult) {
+//            for (JiverMessageModel *model in queryResult) {
+//                [messageArray addJiverMessage:model updateMessageTsBlock:updateMessageTs];
+//            }
+//            [self.tableView reloadData];
+//            
+//            NSUInteger pos = [queryResult count] > 30 ? 30 : [queryResult count];
+//            if (pos > 0) {
+//                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(pos - 1) inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+//            }
+//            
+//            [Jiver joinChannel:[channel getUrl]];
+//            [Jiver connectWithMessageTs:mMaxMessageTs];
+//        } endBlock:^(NSError *error) {
+//            
+//        }];
+        
+        [[Jiver queryMessageListInChannel:[channel getUrl]] prevWithMessageTs:LLONG_MAX andLimit:30 resultBlock:^(NSMutableArray *queryResult) {
             for (JiverMessageModel *model in queryResult) {
                 [messageArray addJiverMessage:model updateMessageTsBlock:updateMessageTs];
             }
@@ -479,7 +500,7 @@
         if (viewMode == kMessagingChannelListEditViewMode) {
             viewMode = kMessagingChannelListViewMode;
             [self setNavigationButton];
-            [messagingChannelListQuery executeWithResultBlock:^(NSMutableArray *queryResult) {
+            [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
                 [messagingChannels removeAllObjects];
                 [messagingChannels addObjectsFromArray:queryResult];
                 [self.messagingChannelListTableView reloadData];
@@ -494,7 +515,8 @@
             viewMode = kMessagingChannelListViewMode;
             [self setNavigationButton];
             messagingChannelListQuery = [Jiver queryMessagingChannelList];
-            [messagingChannelListQuery executeWithResultBlock:^(NSMutableArray *queryResult) {
+            [messagingChannelListQuery setLimit:15];
+            [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
                 [messagingChannels removeAllObjects];
                 [messagingChannels addObjectsFromArray:queryResult];
                 [self.messagingChannelListTableView reloadData];
@@ -549,7 +571,8 @@
     else if (viewMode == kMessagingChannelListViewMode) {
         [self.messagingChannelListTableView setHidden:NO];
         messagingChannelListQuery = [Jiver queryMessagingChannelList];
-        [messagingChannelListQuery executeWithResultBlock:^(NSMutableArray *queryResult) {
+        [messagingChannelListQuery setLimit:15];
+        [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
             [messagingChannels removeAllObjects];
             [messagingChannels addObjectsFromArray:queryResult];
             [self.messagingChannelListTableView reloadData];
@@ -749,6 +772,7 @@
     [self.messagingChannelListTableView setHidden:YES];
     [self.messagingChannelListTableView setAllowsMultipleSelection:NO];
     [self.messagingChannelListTableView setSeparatorColor:[UIColor clearColor]];
+    [self.messagingChannelListTableView setBounces:NO];
     
     [self.messagingChannelListTableView registerClass:[MessagingChannelTableViewCell class] forCellReuseIdentifier:kMessagingChannelCellIdentifier];
     [self.view addSubview:self.messagingChannelListTableView];
@@ -1041,7 +1065,7 @@
         
     }
     else if (scrollView == self.messagingChannelListTableView) {
-        
+        messagingChannelScrolling = YES;
     }
     else {
         scrolling = YES;
@@ -1054,7 +1078,7 @@
         
     }
     else if (scrollView == self.messagingChannelListTableView) {
-        
+        messagingChannelScrolling = NO;
     }
     else {
         scrolling = NO;
@@ -1087,7 +1111,26 @@
         
     }
     else if (scrollView == self.messagingChannelListTableView) {
-        
+        CGPoint offset = scrollView.contentOffset;
+        CGRect bounds = scrollView.bounds;
+        CGSize size = scrollView.contentSize;
+        UIEdgeInsets inset = scrollView.contentInset;
+        float y = offset.y + bounds.size.height - inset.bottom;
+        float h = size.height;
+        if (y > h - 5 && messagingChannelEndDragging == YES) {
+            [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
+                if ([queryResult count] <= 0) {
+                    return;
+                }
+                for (JiverMessagingChannel *model in queryResult) {
+                    [messagingChannels addObject:model];
+                }
+                [self.messagingChannelListTableView reloadData];
+            } endBlock:^(NSInteger code) {
+                
+            }];
+            messagingChannelEndDragging = NO;
+        }
     }
     else if (scrollView == self.tableView) {
         if (scrollView.contentOffset.y < 0 && endDragging == YES) {
@@ -1113,8 +1156,8 @@
             float y = offset.y + bounds.size.height - inset.bottom;
             float h = size.height;
             if (y > h - 5 && endDragging == YES) {
-                NSLog(@"scroll mMaxMessageTs: %lld", mMinMessageTs);
-                [[Jiver queryMessageListInChannel:[Jiver getChannelUrl]] prevWithMessageTs:mMinMessageTs andLimit:30 resultBlock:^(NSMutableArray *queryResult) {
+                NSLog(@"scroll mMaxMessageTs: %lld", mMaxMessageTs);
+                [[Jiver queryMessageListInChannel:[Jiver getChannelUrl]] nextWithMessageTs:mMaxMessageTs andLimit:30 resultBlock:^(NSMutableArray *queryResult) {
                     if ([queryResult count] <= 0) {
                         return;
                     }
@@ -1138,7 +1181,7 @@
         
     }
     else if (scrollView == self.messagingChannelListTableView) {
-        
+        messagingChannelEndDragging = YES;
     }
     else {
         endDragging = YES;
@@ -1680,7 +1723,8 @@
         [self.messageInputView setInputEnable:NO];
         [self.messagingChannelListTableView setHidden:NO];
         messagingChannelListQuery = [Jiver queryMessagingChannelList];
-        [messagingChannelListQuery executeWithResultBlock:^(NSMutableArray *queryResult) {
+        [messagingChannelListQuery setLimit:15];
+        [messagingChannelListQuery nextWithResultBlock:^(NSMutableArray *queryResult) {
             [messagingChannels removeAllObjects];
             [messagingChannels addObjectsFromArray:queryResult];
             [self.messagingChannelListTableView reloadData];
