@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
@@ -223,27 +224,8 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        final MessagingChannelListQuery query = Jiver.queryMessagingChannelList();
-        query.execute(new MessagingChannelListQuery.MessagingChannelListQueryResult() {
-            @Override
-            public void onResult(List<MessagingChannel> messagingChannels) {
-                JiverMessagingChannelAdapter.sortMessagingChannels(messagingChannels);
-
-                mJiverMessagingChannelAdapter.clear();
-                mJiverMessagingChannelAdapter.addAll(messagingChannels);
-                if (messagingChannels.size() <= 0) {
-                    Toast.makeText(JiverMessagingChannelListActivity.this, "No messaging channels were found.", Toast.LENGTH_SHORT).show();
-                }
-
-                Jiver.join("");
-                Jiver.connect();
-            }
-
-            @Override
-            public void onError(int code) {
-
-            }
-        });
+        Jiver.join("");
+        Jiver.connect();
     }
 
     @Override
@@ -315,6 +297,7 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
         private ListView mListView;
         private JiverMessagingChannelAdapter mAdapter;
         private Channel mCurrentChannel;
+        private MessagingChannelListQuery mMessagingChannelListQuery;
 
         public static interface JiverMessagingChannelListHandler {
             public void onMessagingChannelSelected(MessagingChannel channel);
@@ -355,6 +338,19 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
                     }
                 }
             });
+            mListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    if (firstVisibleItem + visibleItemCount >= (int) (totalItemCount * 0.8f)) {
+                        loadMoreChannels();
+                    }
+                }
+            });
             mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -387,6 +383,30 @@ public class JiverMessagingChannelListActivity extends FragmentActivity {
                 }
             });
             mListView.setAdapter(mAdapter);
+        }
+
+        private void loadMoreChannels() {
+            if(mMessagingChannelListQuery == null) {
+                mMessagingChannelListQuery = Jiver.queryMessagingChannelList();
+                mMessagingChannelListQuery.setLimit(1);
+            }
+
+            if(mMessagingChannelListQuery.isLoading()) {
+                return;
+            }
+
+            if(mMessagingChannelListQuery.hasNext()) {
+                mMessagingChannelListQuery.next(new MessagingChannelListQuery.MessagingChannelListQueryResult() {
+                    @Override
+                    public void onResult(List<MessagingChannel> messagingChannels) {
+                        mAdapter.addAll(messagingChannels);
+                    }
+
+                    @Override
+                    public void onError(int i) {
+                    }
+                });
+            }
         }
 
 

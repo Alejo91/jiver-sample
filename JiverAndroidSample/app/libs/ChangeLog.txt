@@ -1,0 +1,5 @@
+- 1.1.27
+Added pagination for MessagingChannelListQuery.
+
+- 1.1.26
+Added getCreatedAt() on Channel and MessagingChannel models which returns creation date/time.
